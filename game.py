@@ -20,7 +20,8 @@ class Game(object):
         self.j = 0
 
     def start(self):
-        self.array_button.append(['Enter', Button(self.screen).createButton([100, 300], 'ENTER', 60).render()])
+        self.array_button.append(['Enter', Button(self.screen).createButton([100, 450], 'Enter', 60).render()])
+        self.array_button.append(['Menu', Button(self.screen).createButton([200, 450], 'Menu', 60).render()])
         secrets = random.sample(range(0, len(self.array_colors) - 1), self.row)
         for secret in secrets:
             self.array_secret.append([self.array_colors[secret][0], ''])
@@ -29,7 +30,7 @@ class Game(object):
             self.array_circle.append([])
             for i in range(self.row):
                 self.createCircle(j, i)
-        print(self.array_secret)
+        print(str(self.array_secret2).strip('[]'))
         return self
 
     def update(self, event):
@@ -73,7 +74,9 @@ class Game(object):
                                     return
                             i = i + 1
         for button in self.array_button:
-            if button[1].isMouseIn(pos): # L'utilisateur a clicker sur enter
+            if  button[0] == 'Menu' and button[1].isMouseIn(pos):
+                return False
+            if button[0] == 'Enter' and button[1].isMouseIn(pos):
                 for circle in self.array_circle[self.j]:
                     if circle[2] == 'grey':
                         return

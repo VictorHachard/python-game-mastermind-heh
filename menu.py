@@ -25,8 +25,8 @@ class Menu(object):
         self.item = self.item + 1
         return self
 
-    def addText(self, text):
-        font = pygame.font.SysFont('comicsans', 60)
+    def addText(self, text, fontSize = 40):
+        font = pygame.font.SysFont('comicsans', fontSize)
         textR = font.render(text, 1, (255, 255, 255))
         self.screen.blit(textR, (640/2 - textR.get_width()/2, self.itemsPos[self.item]))
         self.items.append(['text', textR])

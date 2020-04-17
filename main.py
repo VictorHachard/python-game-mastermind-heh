@@ -17,7 +17,7 @@ def main():
 
     mainMenuLoop = True
     gameLoop = False
-    mainMenu = Menu(screen, 3).addText('Mastermind').addButton('Play', 'p').addButton('Quit', 'q').render()
+    mainMenu = Menu(screen, 3).addText('Mastermind', 60).addButton('Play', 'p').addButton('Quit', 'q').render()
 
     while running :
         for event in pygame.event.get():
@@ -39,13 +39,13 @@ def main():
                     gameLoop = False
                     print('win')
                     screen.fill((0, 0 ,0))
-                    mainMenu = Menu(screen, 4).addText('Mastermind').addText('Win').addButton('Play', 'p').addButton('Quit', 'q').render()
+                    mainMenu = Menu(screen, 4).addText('Mastermind', 60).addText('Win').addButton('Play', 'p').addButton('Quit', 'q').render()
                 elif status == False : #lose
                     mainMenuLoop = True
                     gameLoop = False
                     print('lose')
                     screen.fill((0, 0 ,0))
-                    mainMenu = Menu(screen, 4).addText('Mastermind').addText('Lose ' + str(game.array_secret2).strip('[]')).addButton('Play', 'p').addButton('Quit', 'q').render()
+                    mainMenu = Menu(screen, 4).addText('Mastermind', 60).addText('Lose ' + str(game.array_secret2).strip('[]')).addButton('Play', 'p').addButton('Quit', 'q').render()
 
         pygame.display.flip( )
     pygame.quit( )

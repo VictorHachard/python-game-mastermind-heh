@@ -1,11 +1,12 @@
 import pygame, sys, math, random
+from settings import *
 from pygame import locals as const
 from button import Button
 
 class Game(object):
     """docstring for Game."""
-    array_colors = [['red', (255, 0, 0)], ['blue', (0, 0, 255)], ['green', (0, 255, 0)], ['orange', (255, 165, 0)], ['yelow', (247, 255, 60)]]
-    GREY = (128, 128, 128)
+
+    array_colors = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW]]
 
     def __init__(self, row, colum, radius, screen):
         super(Game, self).__init__()
@@ -20,8 +21,8 @@ class Game(object):
         self.j = 0
 
     def start(self):
-        self.array_button.append(['Enter', Button(self.screen).createButton([100, 450], 'Enter', 60).render()])
-        self.array_button.append(['Menu', Button(self.screen).createButton([200, 450], 'Menu', 60).render()])
+        self.array_button.append(['Enter', Button(self.screen).createButton([100, 440], 'Enter', 60).render()])
+        self.array_button.append(['Menu', Button(self.screen).createButton([250, 440], 'Menu', 60).render()])
         secrets = random.sample(range(0, len(self.array_colors) - 1), self.row)
         for secret in secrets:
             self.array_secret.append([self.array_colors[secret][0], ''])
@@ -77,6 +78,9 @@ class Game(object):
             if  button[0] == 'Menu' and button[1].isMouseIn(pos):
                 return False
             if button[0] == 'Enter' and button[1].isMouseIn(pos):
+                for secret in self.array_secret:
+                    secret[1] = ''
+                print(self.array_secret)
                 for circle in self.array_circle[self.j]:
                     if circle[2] == 'grey':
                         return
@@ -84,6 +88,7 @@ class Game(object):
                 i = 0
                 for circle in self.array_circle[self.j]:
                     if circle[2] == self.array_secret[i][0]:
+                        # print('bien ' + circle[2] + ' ' + self.array_secret[i][0])
                         place = place + 1
                         self.array_secret[i][1] = 'bien'
                     i = i + 1
@@ -91,12 +96,13 @@ class Game(object):
                 for circle in self.array_circle[self.j]:
                     for secret in self.array_secret:
                         if secret[1] != 'bien' and secret[0] == circle[2]:
+                            # print(secret[0] + ' ' + circle[2])
                             present = present + 1
                 marginY = int(self.j * 80 + 20)
                 font = pygame.font.SysFont('comicsans', 20)
-                text = font.render('Bon: ' + str(place), 1, (255, 0, 0))
+                text = font.render('Bon: ' + str(place), 1, WHITE)
                 self.screen.blit(text, (560, marginY))
-                text = font.render('Là : ' + str(present), 1, (255, 0, 0))
+                text = font.render('Là : ' + str(present), 1, WHITE)
                 self.screen.blit(text, (560, marginY + 10))
                 self.j = self.j + 1
                 if (place == self.row): #win
@@ -107,7 +113,7 @@ class Game(object):
         return
 
     def createCircle(self, j, i):
-        marginX = int((640 - (self.radius * self.row)) / (self.row + 1))
-        marginY = int((480 - (self.radius * self.colum)) / (self.colum + 1))
+        marginX = int((HEIGHT - (self.radius * self.row)) / (self.row + 1))
+        marginY = int((WIDTH - (self.radius * self.colum)) / (self.colum + 1))
         self.array_circle[j].append([marginX + i * (marginX + self.radius), marginY + j * (marginY + self.radius), 'grey', ''])
-        pygame.draw.circle(self.screen, self.GREY, (self.array_circle[j][i][0], self.array_circle[j][i][1]), self.radius)
+        pygame.draw.circle(self.screen, GREY, (self.array_circle[j][i][0], self.array_circle[j][i][1]), self.radius)

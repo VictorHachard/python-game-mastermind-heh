@@ -1,17 +1,14 @@
 import pygame
+from settings import *
 from pygame import locals as const
 from game import Game
 from button import Button
 from menu import Menu
 
 def main():
-
-    print("Appuyez sur n'importe quelle touche pour lancer la partie !")
-
     pygame.init()
-
-    screen = pygame.display.set_mode((640, 480))
-    pygame.display.set_caption("mastermind")
+    screen = pygame.display.set_mode((HEIGHT, WIDTH))
+    pygame.display.set_caption(TITLE)
 
     running = True
 
@@ -19,7 +16,7 @@ def main():
     gameLoop = False
     mainMenu = Menu(screen, 3).addText('Mastermind', 60).addButton('Play', 'p').addButton('Quit', 'q').render()
 
-    while running :
+    while running:
         for event in pygame.event.get():
             if event.type == const.QUIT or (event.type == const.KEYDOWN and event.key == const.K_ESCAPE):
                 running = False
@@ -28,7 +25,7 @@ def main():
                 if res == 'q':
                     running = False
                 elif res == 'p':
-                    screen.fill((0, 0 ,0))
+                    screen.fill(BLACK)
                     game = Game(4, 5, 20, screen).start()
                     mainMenuLoop = False
                     gameLoop = True
@@ -38,18 +35,17 @@ def main():
                     mainMenuLoop = True
                     gameLoop = False
                     print('win')
-                    screen.fill((0, 0 ,0))
+                    screen.fill(BLACK)
                     mainMenu = Menu(screen, 4).addText('Mastermind', 60).addText('Win').addButton('Play', 'p').addButton('Quit', 'q').render()
-                elif status == False : #lose
+                elif status == False: #lose
                     mainMenuLoop = True
                     gameLoop = False
                     print('lose')
-                    screen.fill((0, 0 ,0))
+                    screen.fill(BLACK)
                     mainMenu = Menu(screen, 4).addText('Mastermind', 60).addText('Lose ' + str(game.array_secret2).strip('[]')).addButton('Play', 'p').addButton('Quit', 'q').render()
 
         pygame.display.flip( )
     pygame.quit( )
-
 
 if __name__ == '__main__':
     main()

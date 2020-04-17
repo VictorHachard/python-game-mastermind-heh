@@ -1,6 +1,7 @@
 import pygame
 from pygame import locals as const
 from button import Button
+from text import Text
 
 class Menu(object):
     """docstring for Menu."""
@@ -25,16 +26,12 @@ class Menu(object):
         self.item = self.item + 1
         return self
 
-    def addText(self, text, fontSize = 40):
-        font = pygame.font.SysFont('comicsans', fontSize)
-        textR = font.render(text, 1, (255, 255, 255))
-        self.screen.blit(textR, (640/2 - textR.get_width()/2, self.itemsPos[self.item]))
-        self.items.append(['text', textR])
+    def addText(self, text, fontSize = 40, colorText = (255, 255, 255)):
+        self.items.append(['text', Text(self.screen).center().createText([0, self.itemsPos[self.item]], text, fontSize, colorText)])
         self.item = self.item + 1
         return self
 
     def render(self):
         for item in self.items:
-            if item[0] == 'button':
-                item[1].render()
+            item[1].render()
         return self

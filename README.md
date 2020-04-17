@@ -10,9 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Requirements
 
-*YouTube Playlist Checker* and *YouTube Playlist Checker* - *API* requires the following to run:
+This game require the following to run:
 
-- [Python](https://php.net/)
+- [Python 3](https://php.net/)
 - [Pygame](https://www.pygame.org/news)
 
 ### Building

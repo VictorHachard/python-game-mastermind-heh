@@ -14,7 +14,9 @@ def main():
 
     mainMenuLoop = True
     gameLoop = False
+    difficultyMenuLoop = False
     mainMenu = Menu(screen, 3).addText('Mastermind', 60).addButton('Play', 'p').addButton('Quit', 'q').render()
+    difficultyMenu = Menu(screen, 4).addText('Difficulty', 60).addButton('Easy', 'e').addButton('Medium', 'm').addButton('Hard', 'h')
 
     while running:
         for event in pygame.event.get():
@@ -26,10 +28,24 @@ def main():
                     running = False
                 elif res == 'p':
                     screen.fill(BLACK)
-                    game = Game(4, 5, 20, screen).start()
+                    difficultyMenu.render()
                     mainMenuLoop = False
+                    difficultyMenuLoop = True
+            elif difficultyMenuLoop:
+                res = difficultyMenu.update(event)
+                if res == 'e':
+                    screen.fill(BLACK)
+                    game = Game(4, 6, 20, screen).start()
+                elif res == 'm':
+                    screen.fill(BLACK)
+                    game = Game(4, 5, 20, screen).start()
+                elif res == 'h':
+                    screen.fill(BLACK)
+                    game = Game(5, 5, 20, screen).start()
+                if res == 'e' or res == 'm' or res == 'h':
+                    difficultyMenuLoop = False
                     gameLoop = True
-            if gameLoop:
+            elif gameLoop:
                 status = game.update(event)
                 if status: #win
                     mainMenuLoop = True

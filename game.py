@@ -23,7 +23,7 @@ class Game(object):
     def start(self):
         self.array_button.append(['Enter', Button(self.screen).createButton([100, 440], 'Enter', 60).render()])
         self.array_button.append(['Menu', Button(self.screen).createButton([250, 440], 'Menu', 60).render()])
-        secrets = random.sample(range(0, len(self.array_colors) - 1), self.row)
+        secrets = random.sample(range(0, len(self.array_colors)), self.row)
         for secret in secrets:
             self.array_secret.append([self.array_colors[secret][0], ''])
             self.array_secret2.append(self.array_colors[secret][0])

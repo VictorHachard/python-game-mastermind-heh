@@ -21,7 +21,7 @@ class Text(object):
         self.textWidth = self.text.get_width()
         self.textHeight = self.text.get_height()
         if self.x == -1:
-            self.x = HEIGHT/2 - self.text.get_width()/2
+            self.x = WIDTH/2 - self.text.get_width()/2
         return self
 
     def render(self):

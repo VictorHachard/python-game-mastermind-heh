@@ -1,6 +1,8 @@
 import pygame
 from pygame import locals as const
 from game import Game
+from button import Button
+from menu import Menu
 
 def main():
 
@@ -12,40 +14,41 @@ def main():
     pygame.display.set_caption("mastermind")
 
     running = True
-    start = False
-    game = Game(4, 5, 20, screen) # Game class
 
-    while running:
+    mainMenuLoop = True
+    gameLoop = False
+    mainMenu = Menu(screen, 3).addText('Mastermind').addButton('Play', 'p').addButton('Quit', 'q').render()
+
+    while running :
         for event in pygame.event.get():
             if event.type == const.QUIT or (event.type == const.KEYDOWN and event.key == const.K_ESCAPE):
                 running = False
-            if start:
+            if mainMenuLoop:
+                res = mainMenu.update(event)
+                if res == 'q':
+                    running = False
+                elif res == 'p':
+                    screen.fill((0, 0 ,0))
+                    game = Game(4, 5, 20, screen).start()
+                    mainMenuLoop = False
+                    gameLoop = True
+            if gameLoop:
                 status = game.update(event)
                 if status: #win
-                    start = False
+                    mainMenuLoop = True
+                    gameLoop = False
                     print('win')
                     screen.fill((0, 0 ,0))
-                    font = pygame.font.SysFont('comicsans', 30)
-                    text = font.render('Win', 1, (255, 255, 255))
-                    screen.blit(text, (320 + (20/2 - text.get_width()/2), 240 + (20/2 - text.get_height()/2)))
-                    game = Game(4, 5, 20, screen) # Game class
+                    mainMenu = Menu(screen, 4).addText('Mastermind').addText('Win').addButton('Play', 'p').addButton('Quit', 'q').render()
                 elif status == False : #lose
-                    start = False
+                    mainMenuLoop = True
+                    gameLoop = False
                     print('lose')
                     screen.fill((0, 0 ,0))
-                    font = pygame.font.SysFont('comicsans', 30)
-                    text = font.render('Lose ' + str(game.array_secret2).strip('[]'), 1, (255, 255, 255))
-                    screen.blit(text, (320 + (20/2 - text.get_width()/2), 240 + (20/2 - text.get_height()/2)))
-                    game = Game(4, 5, 20, screen) # Game class
+                    mainMenu = Menu(screen, 4).addText('Mastermind').addText('Lose ' + str(game.array_secret2).strip('[]')).addButton('Play', 'p').addButton('Quit', 'q').render()
 
-            if event.type == const.KEYDOWN:
-                start = True
-                screen.fill((0, 0 ,0))
-                game.start()
-
-        pygame.display.update()
-
-    pygame.quit()
+        pygame.display.flip( )
+    pygame.quit( )
 
 
 if __name__ == '__main__':

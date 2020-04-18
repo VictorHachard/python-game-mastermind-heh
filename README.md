@@ -19,7 +19,15 @@ This game require the following to run:
 
 #### Pygame
 
+you need to install pygame in order to execute the game.
+
 `python -m pip install pygame --user`
+
+### Run the game
+
+In the 'src' folder execute the 'main.py' file:
+
+`{python|py|python3} main.py`
 
 ## What I Learned
 

@@ -23,9 +23,9 @@ class Menu(object):
                 if button[0] == 'button' and button[1].isMouseIn(pygame.mouse.get_pos()):
                     return button[2]
 
-    def addButton(self, text, id):
+    def addButton(self, text, id, color = GREY):
         """Add a button"""
-        self.items.append(['button', Button(self.screen).center().createButton([0, self.itemsPos[self.item]], text, 60), id])
+        self.items.append(['button', Button(self.screen).center().createButton([0, self.itemsPos[self.item]], text, 60, color), id])
         self.item = self.item + 1
         return self
 

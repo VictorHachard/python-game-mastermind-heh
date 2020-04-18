@@ -12,12 +12,12 @@ def main():
 
     running = True
 
+    difficultyLvl = 0
     mainMenuLoop = True
     gameLoop = False
     difficultyMenuLoop = False
     multipleColor = False
     mainMenu = Menu(screen, 4).addText('Mastermind', 60).addButton('Play', 'p').addButton('multiple colors: Off', 'm').addButton('Quit', 'q').render()
-    difficultyMenu = Menu(screen, 6).addText('Difficulty', 60).addButton('Easy', 'e').addButton('Medium', 'm').addButton('Hard', 'h').addButton('Extreme', 'ex').addButton('Armand', 'a')
 
     while running:
         for event in pygame.event.get():
@@ -38,32 +38,36 @@ def main():
                         mainMenu = Menu(screen, 4).addText('Mastermind', 60).addButton('Play', 'p').addButton('multiple colors: On', 'm').addButton('Quit', 'q').render()
                 elif res == 'p':
                     screen.fill(BLACK)
+                    difficultyMenu = Menu(screen, 6).addText('Difficulty', 60).addButton('Easy', 'e', GREEN if difficultyLvl >= 0 else GREY).addButton('Medium', 'm', GREEN if difficultyLvl >= 1 else GREY).addButton('Hard', 'h', GREEN if difficultyLvl >= 2 else GREY).addButton('Extreme', 'ex', GREEN if difficultyLvl >= 3 else GREY).addButton('Armand', 'a', GREEN if difficultyLvl >= 4 else GREY)
                     difficultyMenu.render()
                     mainMenuLoop = False
                     difficultyMenuLoop = True
             elif difficultyMenuLoop:
                 res = difficultyMenu.update(event)
-                if res == 'e':
+                game = False
+                if res == 'e' and difficultyLvl >= 0:
                     screen.fill(BLACK)
-                    game = Game(screen, 4, 6, 20).start(multipleColor)
-                elif res == 'm':
+                    game = Game(screen, 4, 2, 20).start(multipleColor)
+                elif res == 'm' and difficultyLvl >= 1:
                     screen.fill(BLACK)
                     game = Game(screen, 4, 5, 20).start(multipleColor)
-                elif res == 'h':
+                elif res == 'h' and difficultyLvl >= 2:
                     screen.fill(BLACK)
                     game = Game(screen, 5, 5, 20).start(multipleColor)
-                elif res == 'ex':
+                elif res == 'ex' and difficultyLvl >= 3:
                     screen.fill(BLACK)
                     game = Game(screen, 5, 4, 20).start(multipleColor)
-                elif res == 'a':
+                elif res == 'a' and difficultyLvl >= 4:
                     screen.fill(BLACK)
                     game = Game(screen, 7, 6, 20, 7).start(multipleColor)
                 if res == 'e' or res == 'm' or res == 'h' or res == 'ex' or res == 'a':
-                    difficultyMenuLoop = False
-                    gameLoop = True
+                    if game:
+                        difficultyMenuLoop = False
+                        gameLoop = True
             elif gameLoop:
                 status = game.update(event)
                 if status: #win
+                    difficultyLvl += 1
                     mainMenuLoop = True
                     gameLoop = False
                     print('win')

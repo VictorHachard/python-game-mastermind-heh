@@ -17,10 +17,12 @@ class Game(object):
         self.colum = colum
         self.radius = radius
         self.array_circle = []
+        self.array_circle_drop = []
         self.array_button = []
         self.array_secret = []
         self.array_secret2 = []
         self.j = 1
+        self.drag = False
 
     def start(self, multipleColor):
         self.array_button.append(['Enter', Button(self.screen).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60).render()])
@@ -37,6 +39,7 @@ class Game(object):
             for i in range(self.row):
                 self.createCircle(i, j)
         print(str(self.array_secret2).strip('[]'))
+        self.createDrop()
         return self
 
     def update(self, event):
@@ -49,7 +52,16 @@ class Game(object):
                 sqx = (pos[0] - circle.horizontal())**2
                 sqy = (pos[1] - circle.vertical())**2
                 if math.sqrt(sqx + sqy) < self.radius:
-                    circle.switch("desc" if right else "asc")
+                    if self.drag:
+                        circle.fill(self.drag).render()
+                        self.drag = False
+                    else:
+                        circle.switch("desc" if right else "asc")
+            for circle in self.array_circle_drop:
+                sqx = (pos[0] - circle.horizontal())**2
+                sqy = (pos[1] - circle.vertical())**2
+                if math.sqrt(sqx + sqy) < self.radius:
+                    self.drag = circle.fill()
         for button in self.array_button:
             if  button[0] == 'Menu' and button[1].isMouseIn(pos):
                 return False
@@ -92,11 +104,20 @@ class Game(object):
         text1 = self.font.render('Placement : ' + text1, 1, WHITE)
         text2 = self.font.render('Present : ' + text2, 1, WHITE)
         marginY = int((HEIGHT - 30 - (self.radius * (self.colum + 1))) / (self.colum + 2))
-        self.screen.blit(text1, (WIDTH - 100,  marginY + self.j * (marginY + self.radius) - text1.get_height()))
-        self.screen.blit(text2, (WIDTH - 100,  marginY + self.j * (marginY + self.radius) + 12 - text1.get_height()))
+        marginX = int((WIDTH - 40 - (self.radius * self.row)) / (self.row + 2))
+        x = marginX + self.row * (marginX + self.radius)
+        self.screen.blit(text1, (x,  marginY + self.j * (marginY + self.radius) - text1.get_height()))
+        self.screen.blit(text2, (x,  marginY + self.j * (marginY + self.radius) + 12 - text1.get_height()))
+
+    def createDrop(self):
+        i = 0
+        for color in self.array_colors:
+            marginY = int((HEIGHT - HEIGHT/2 - (self.radius * self.colum + 1)) / (self.colum + 2))
+            self.array_circle_drop.append(Circle(self.screen, self.array_colors).horizontal(WIDTH - 20).vertical(marginY + i * (marginY + self.radius)).fill(color[0]).size(10).render())
+            i += 1
 
     def createCircle(self, i, j):
-        marginX = int((WIDTH - 50 - (self.radius * self.row)) / (self.row + 1))
+        marginX = int((WIDTH - (self.radius * self.row)) / (self.row + 2))
         marginY = int((HEIGHT - 40 - (self.radius * self.colum + 1)) / (self.colum + 2))
         circle = Circle(self.screen, self.array_colors).horizontal(marginX + i * (marginX + self.radius)).vertical(marginY + j * (marginY + self.radius)).size(self.radius)
         if j == 0:

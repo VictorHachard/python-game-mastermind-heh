@@ -14,6 +14,7 @@ class Game(object):
         self.screen = screen
         self.row = row
         self.colors = colors
+        self.array_colors  = self.array_colors [:colors]
         self.colum = colum
         self.radius = radius
         self.array_circle = []
@@ -25,7 +26,7 @@ class Game(object):
     def start(self):
         self.array_button.append(['Enter', Button(self.screen).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60).render()])
         self.array_button.append(['Menu', Button(self.screen).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60).render()])
-        secrets = random.sample(range(0, self.colors), self.row)
+        secrets = random.sample(range(0, len(self.array_colors)), self.row)
         for secret in secrets:
             self.array_secret.append([self.array_colors[secret][0], ''])
             self.array_secret2.append(self.array_colors[secret][0])

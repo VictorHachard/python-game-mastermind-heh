@@ -35,16 +35,16 @@ def main():
                 res = difficultyMenu.update(event)
                 if res == 'e':
                     screen.fill(BLACK)
-                    game = Game(screen, 4, 6, 20, 5).start()
+                    game = Game(screen, 4, 6, 20).start()
                 elif res == 'm':
                     screen.fill(BLACK)
-                    game = Game(screen, 4, 5, 20, 5).start()
+                    game = Game(screen, 4, 5, 20).start()
                 elif res == 'h':
                     screen.fill(BLACK)
-                    game = Game(screen, 5, 5, 20, 5).start()
+                    game = Game(screen, 5, 5, 20).start()
                 elif res == 'ex':
                     screen.fill(BLACK)
-                    game = Game(screen, 5, 4, 20, 5).start()
+                    game = Game(screen, 5, 4, 20).start()
                 elif res == 'a':
                     screen.fill(BLACK)
                     game = Game(screen, 7, 6, 20, 7).start()

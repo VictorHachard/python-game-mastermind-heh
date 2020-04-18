@@ -13,7 +13,7 @@ CYAN = (0, 255, 255)
 PURPLE = (128, 0, 128)
 
 # game settings
-WIDTH = 700
-HEIGHT = 600
+WIDTH = 800
+HEIGHT = 800
 FPS = 60
 TITLE = "Mastermind"

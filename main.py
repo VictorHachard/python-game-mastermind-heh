@@ -16,7 +16,7 @@ def main():
     gameLoop = False
     difficultyMenuLoop = False
     mainMenu = Menu(screen, 3).addText('Mastermind', 60).addButton('Play', 'p').addButton('Quit', 'q').render()
-    difficultyMenu = Menu(screen, 4).addText('Difficulty', 60).addButton('Easy', 'e').addButton('Medium', 'm').addButton('Hard', 'h')
+    difficultyMenu = Menu(screen, 6).addText('Difficulty', 60).addButton('Easy', 'e').addButton('Medium', 'm').addButton('Hard', 'h').addButton('Extreme', 'ex').addButton('Armand', 'a')
 
     while running:
         for event in pygame.event.get():
@@ -35,14 +35,20 @@ def main():
                 res = difficultyMenu.update(event)
                 if res == 'e':
                     screen.fill(BLACK)
-                    game = Game(4, 6, 20, screen).start()
+                    game = Game(screen, 4, 6, 20, 5).start()
                 elif res == 'm':
                     screen.fill(BLACK)
-                    game = Game(4, 5, 20, screen).start()
+                    game = Game(screen, 4, 5, 20, 5).start()
                 elif res == 'h':
                     screen.fill(BLACK)
-                    game = Game(5, 5, 20, screen).start()
-                if res == 'e' or res == 'm' or res == 'h':
+                    game = Game(screen, 5, 5, 20, 5).start()
+                elif res == 'ex':
+                    screen.fill(BLACK)
+                    game = Game(screen, 5, 4, 20, 5).start()
+                elif res == 'a':
+                    screen.fill(BLACK)
+                    game = Game(screen, 7, 6, 20, 7).start()
+                if res == 'e' or res == 'm' or res == 'h' or res == 'ex' or res == 'a':
                     difficultyMenuLoop = False
                     gameLoop = True
             elif gameLoop:

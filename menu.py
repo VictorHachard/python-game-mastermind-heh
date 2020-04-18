@@ -12,7 +12,7 @@ class Menu(object):
         self.items = []
         self.item = 0
         self.screen = screen
-        self.height = HEIGHT - items * 25 - 40
+        self.height = HEIGHT - items * 20 - 40
         self.itemsPos = [(self.height / items * x) for x in range(items)]
         self.itemsPos = [self.itemsPos[x] + 40 for x in range(items)]
 

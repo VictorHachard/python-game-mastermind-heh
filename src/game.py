@@ -22,14 +22,13 @@ class Game(object):
         self.array_secret2 = []
         self.j = 1
 
-    def start(self, multipleColor = False):
+    def start(self, multipleColor):
         self.array_button.append(['Enter', Button(self.screen).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60).render()])
         self.array_button.append(['Menu', Button(self.screen).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60).render()])
         if multipleColor:
             secrets = [random.randint(0, len(self.array_colors) - 1) for i in range(self.row)]
         else:
             secrets = random.sample(range(0, len(self.array_colors)), self.row)
-        print(secrets)
         for secret in secrets:
             self.array_secret.append([self.array_colors[secret][0], ''])
             self.array_secret2.append(self.array_colors[secret][0])

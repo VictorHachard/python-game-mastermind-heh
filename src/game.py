@@ -65,6 +65,7 @@ class Game(object):
                     if circle.fill() == self.array_secret[i][0]:
                         place += 1
                         self.array_secret[i][1] = 'bien'
+                        circle.done(True)
                     i += 1
                 present = 0
                 for circle in self.array_circle[self.j]:

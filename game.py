@@ -6,7 +6,7 @@ from button import Button
 class Game(object):
     """docstring for Game."""
 
-    array_colors = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN], ['purple', PURPLE]]
+    array_colors = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN]]
 
     def __init__(self, row, colum, radius, screen):
         super(Game, self).__init__()
@@ -74,7 +74,7 @@ class Game(object):
                                     circle[2] = self.array_colors[i+1][0]
                                     pygame.draw.circle(self.screen, self.array_colors[i+1][1], (circle[0], circle[1]), self.radius)
                                     return
-                            i = i + 1
+                            i += 1
         for button in self.array_button:
             if  button[0] == 'Menu' and button[1].isMouseIn(pos):
                 return False
@@ -88,18 +88,17 @@ class Game(object):
                 i = 0
                 for circle in self.array_circle[self.j]:
                     if circle[2] == self.array_secret[i][0]:
-                        # print('bien ' + circle[2] + ' ' + self.array_secret[i][0])
-                        place = place + 1
+                        place += 1
                         self.array_secret[i][1] = 'bien'
-                    i = i + 1
+                    i += 1
                 present = 0
                 for circle in self.array_circle[self.j]:
                     for secret in self.array_secret:
-                        if secret[1] != 'bien' and secret[0] == circle[2]:
-                            # print(secret[0] + ' ' + circle[2])
-                            present = present + 1
+                        if secret[1] == '' and secret[0] == circle[2]:
+                            self.array_secret[1] = 'place'
+                            present += 1
                 self.addText(str(place), str(present))
-                self.j = self.j + 1
+                self.j += 1
                 if (place == self.row): #win
                     return True
                 if (self.j >= self.colum): #lose

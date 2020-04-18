@@ -47,7 +47,7 @@ def main():
                     game = Game(screen, 5, 4, 20).start()
                 elif res == 'a':
                     screen.fill(BLACK)
-                    game = Game(screen, 7, 6, 20, 7).start()
+                    game = Game(screen, 7, 6, 20, 7).start(True)
                 if res == 'e' or res == 'm' or res == 'h' or res == 'ex' or res == 'a':
                     difficultyMenuLoop = False
                     gameLoop = True

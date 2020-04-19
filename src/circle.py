@@ -16,6 +16,7 @@ class Circle(object):
         self.check = False
 
     def switch(self, order):
+        """Swith the color in the color list asc or desc, return this"""
         i = 0
         if order == 'desc':
             if self.colorStr == 'grey':
@@ -24,7 +25,7 @@ class Circle(object):
                 for color in self.colors:
                     if self.colorStr == color[0]:
                         self.fill(self.colors[i-1][0]).render()
-                        return
+                        return self
                     i += 1
         elif order == 'asc':
             if self.colorStr == 'grey':
@@ -34,13 +35,15 @@ class Circle(object):
                     if self.colorStr == color[0]:
                         if i+1 >= len(self.colors):
                             self.fill(self.colors[0][0]).render()
-                            return
+                            return self
                         else:
                             self.fill(self.colors[i+1][0]).render()
-                            return
+                            return self
                     i += 1
+        return self
 
     def done(self, check = 0):
+        """Store a bool True if the circle is check, return this"""
         if check == 0:
             return self.check
         else:
@@ -48,6 +51,7 @@ class Circle(object):
             return self
 
     def fill(self, color = False):
+        """Fill the color in the circle, the color can be given as COLOR or string, return this"""
         if color == False:
             return self.colorStr
         else:
@@ -61,6 +65,7 @@ class Circle(object):
             return self
 
     def size(self, radius = False):
+        """Set the radius of the circle, return this"""
         if radius == False:
             return self.radius
         else:
@@ -68,6 +73,7 @@ class Circle(object):
             return self
 
     def horizontal(self, x = False):
+        """Set the horizontal value of the circle, return this"""
         if x == False:
             return self.x
         else:
@@ -75,6 +81,7 @@ class Circle(object):
             return self
 
     def vertical(self, y = False):
+        """Set the vertical value of the circle, return this"""
         if y == False:
             return self.y
         else:
@@ -82,5 +89,6 @@ class Circle(object):
             return self
 
     def render(self):
+        """Render the circle, return this"""
         pygame.draw.circle(self.screen, self.color, (self.x, self.y), self.radius)
         return self

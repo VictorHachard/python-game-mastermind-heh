@@ -101,6 +101,7 @@ class Game(object):
         return
 
     def addText(self, text1, text2):
+        """Set the result text after rool the turn"""
         text1 = self.font.render('Placement : ' + text1, 1, WHITE)
         text2 = self.font.render('Present : ' + text2, 1, WHITE)
         marginY = int((HEIGHT - 30 - (self.radius * (self.colum + 1))) / (self.colum + 2))
@@ -110,6 +111,7 @@ class Game(object):
         self.screen.blit(text2, (x,  marginY + self.j * (marginY + self.radius) + 12 - text1.get_height()))
 
     def createDrop(self):
+        """Create the drag and drop menu"""
         i = 0
         for color in self.array_colors:
             marginY = int((HEIGHT - HEIGHT/2 - (self.radius * self.colum + 1)) / (self.colum + 2))
@@ -117,6 +119,7 @@ class Game(object):
             i += 1
 
     def createCircle(self, i, j):
+        """Create a circle and his position and append in circle array"""
         marginX = int((WIDTH - (self.radius * self.row)) / (self.row + 2))
         marginY = int((HEIGHT - 40 - (self.radius * self.colum + 1)) / (self.colum + 2))
         circle = Circle(self.screen, self.array_colors).horizontal(marginX + i * (marginX + self.radius)).vertical(marginY + j * (marginY + self.radius)).size(self.radius)

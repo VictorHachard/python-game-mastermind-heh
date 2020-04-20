@@ -16,7 +16,7 @@ class DifficultyMenu(object):
         self.new()
 
     def new(self):
-        self.difficultyMenu = Menu(self.screen, 6).addText('Difficulty', 60).addButton('Easy', 'e', GREEN if self.difficultyLvl >= 0 else GREY).addButton('Medium', 'm', GREEN if self.difficultyLvl >= 1 else GREY).addButton('Hard', 'h', GREEN if self.difficultyLvl >= 2 else GREY).addButton('Extreme', 'ex', GREEN if self.difficultyLvl >= 3 else GREY).addButton('Armand', 'a', GREEN if self.difficultyLvl >= 4 else GREY)
+        self.difficultyMenu = Menu(self.screen, 7).addText('Difficulty', 60).addButton('Easy', 'e', GREEN if self.difficultyLvl >= 0 else GREY).addButton('Medium', 'm', GREEN if self.difficultyLvl >= 1 else GREY).addButton('Hard', 'h', GREEN if self.difficultyLvl >= 2 else GREY).addButton('Extreme', 'ex', GREEN if self.difficultyLvl >= 3 else GREY).addButton('Armand', 'a', GREEN if self.difficultyLvl >= 4 else GREY).addButton('Menu', 'menu')
 
     def update(self):
         pass
@@ -27,7 +27,9 @@ class DifficultyMenu(object):
     def events(self, event):
         game = False
         res = self.difficultyMenu.update(event)
-        if res == 'e' and self.difficultyLvl >= 0:
+        if res == 'menu':
+            self.main.change = 'mainMenu'
+        elif res == 'e' and self.difficultyLvl >= 0:
             game = Game(self.main, self.screen)
         elif res == 'm' and self.difficultyLvl >= 1:
              game = Game(self.main, self.screen, column = 4, row = 4)

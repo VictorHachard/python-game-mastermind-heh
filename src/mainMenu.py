@@ -12,13 +12,20 @@ class MainMenu(object):
         self.main = main
         self.screen = screen
         self.colorMode = False
+        self.vsPlayer = False
         self.new()
 
     def new(self):
+        self.mainMenu = Menu(self.screen, 5).addText('Mastermind', 60).addButton('Play', 'p')
         if self.colorMode:
-            self.mainMenu = Menu(self.screen, 4).addText('Mastermind', 60).addButton('Play', 'p').addButton('multiple colors: On', 'm').addButton('Quit', 'q')
+            self.mainMenu.addButton('multiple colors: On', 'm')
         else:
-            self.mainMenu = Menu(self.screen, 4).addText('Mastermind', 60).addButton('Play', 'p').addButton('multiple colors: Off', 'm').addButton('Quit', 'q')
+            self.mainMenu.addButton('multiple colors: Off', 'm')
+        if self.vsPlayer:
+            self.mainMenu.addButton('vs: Player 2', 'v')
+        else:
+            self.mainMenu.addButton('vs: IA', 'v')
+        self.mainMenu.addButton('Quit', 'q')
 
     def update(self):
         pass
@@ -34,4 +41,7 @@ class MainMenu(object):
             self.main.change = 'difficultyMenu'
         elif res == 'm':
             self.colorMode = not self.colorMode
+            self.new()
+        elif res == 'v':
+            self.vsPlayer = not self.vsPlayer
             self.new()

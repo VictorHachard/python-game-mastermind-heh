@@ -32,7 +32,7 @@ class Main(object):
         self.tasks.append(['mainMenu', True, MainMenu(self, self.screen)])
         self.tasks.append(['difficultyMenu', False, DifficultyMenu(self, self.screen)])
         self.tasks.append(['winMenu', False, WinMenu(self, self.screen)])
-        self.tasks.append(['game', False, Game(self, self.screen)])
+        self.tasks.append(['game', False, None])
 
     def getTask(self, id):
         for task in self.tasks:

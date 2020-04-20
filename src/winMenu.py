@@ -16,7 +16,7 @@ class WinMenu(object):
 
     def new(self):
         self.difficultyLvl = 0
-        self.winMenu = Menu(self.screen, 3).addText('win', 60).addButton('Menu', 'm').addButton('Quit', 'q')
+        self.winMenu = Menu(self.screen, 2).addText('win', 60).addButton('Menu', 'm')
 
     def update(self):
         pass
@@ -29,5 +29,3 @@ class WinMenu(object):
         res = self.winMenu.update(event)
         if res == 'm':
             self.main.change = 'mainMenu'
-        elif res == 'q':
-            self.main.running = False

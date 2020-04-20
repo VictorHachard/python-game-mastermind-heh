@@ -19,9 +19,10 @@ class Menu(object):
     def update(self, event):
         """Update, return the id of the button that colliding with the mouse"""
         if event.type == pygame.MOUSEBUTTONUP:
-            for button in self.items:
-                if button[0] == 'button' and button[1].isMouseIn(pygame.mouse.get_pos()):
-                    return button[2]
+            if event.button == 1:
+                for button in self.items:
+                    if button[0] == 'button' and button[1].isMouseIn(pygame.mouse.get_pos()):
+                        return button[2]
 
     def addButton(self, text, id, color = GREY):
         """Add a button"""

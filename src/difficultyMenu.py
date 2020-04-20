@@ -35,7 +35,7 @@ class DifficultyMenu(object):
             game = Game(self.main, self.screen, column = 5, row = 5)
         elif res == 'ex' and self.difficultyLvl >= 3:
             game = Game(self.main, self.screen, column = 6, row = 6)
-        elif res == 'a' and dself.difficultyLvl >= 4:
+        elif res == 'a' and self.difficultyLvl >= 4:
             game = Game(self.main, self.screen, column = 7, row = 6)
         if res == 'e' or res == 'm' or res == 'h' or res == 'ex' or res == 'a':
             if game:

@@ -8,14 +8,14 @@ from circle import Circle
 class Game(object):
     """docstring for Game."""
 
-    def __init__(self, main, screen, column = 4, row = 6, radius = 20, color = 5, multipleColor = False):
+    def __init__(self, main, screen, column = 4, row = 6, radius = 20, color = 5, colorMode = False):
         self.main = main
         self.screen = screen
         self.column, self.row = column, row
         self.color = color
         self.colors = COLORS[:color]
         self.radius = radius
-        self.multipleColor = multipleColor
+        self.colorMode = colorMode
 
         self.font = pygame.font.SysFont('comicsans', 20)
         self.secret = []
@@ -26,8 +26,8 @@ class Game(object):
         self.new()
 
     def new(self):
-        #self.multipleColor = self.main.getTask('difficultyMenu')[2].  #TO Move
-        if self.multipleColor:
+        self.colorMode = self.main.getTask('mainMenu')[2].colorMode #To Move
+        if self.colorMode:
             secrets = [random.randint(0, len(self.colors) - 1) for i in range(self.column)]
         else:
             secrets = random.sample(range(0, len(self.colors)), self.column)

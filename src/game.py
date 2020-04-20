@@ -106,6 +106,9 @@ class Game(object):
                     self.main.change = 'mainMenu'
                 if button[0] == 'Enter' and button[1].isMouseIn(pos) and self.j <= self.row:
                     if self.vsPlayer:
+                        for circle in self.circles[0]:
+                            if circle.fill() == 'grey':
+                                return
                         self.vsPlayer = not self.vsPlayer
                         for circle in self.circles[0]:
                             i = 0

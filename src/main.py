@@ -1,87 +1,85 @@
-import pygame
+import pygame, json
+import sys
+from os import path
 from settings import *
 from pygame import locals as const
 from game import Game
-from button import Button
-from menu import Menu
+from difficultyMenu import DifficultyMenu
+from mainMenu import MainMenu
+from winMenu import WinMenu
+from sprites import *
 
-def main():
-    pygame.init()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption(TITLE)
+class Main(object):
+    """docstring for Main."""
 
-    running = True
+    def __init__(self):
+        pygame.mixer.pre_init(44100, -16, 4, 2048)
+        pygame.init()
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption(TITLE)
+        self.clock = pygame.time.Clock()
+        self.load_data()
 
-    difficultyLvl = 0
-    mainMenuLoop = True
-    gameLoop = False
-    difficultyMenuLoop = False
-    multipleColor = False
-    mainMenu = Menu(screen, 4).addText('Mastermind', 60).addButton('Play', 'p').addButton('multiple colors: Off', 'm').addButton('Quit', 'q').render()
+    def load_data(self):
+        game_folder = path.dirname(__file__)
+        imgage_folder = path.join(game_folder, 'imgage')
+        sound_folder = path.join(game_folder, 'sound')
+        music_folder = path.join(game_folder, 'music')
 
-    while running:
+    def new(self):
+        self.change = ''
+        self.tasks = []
+        self.tasks.append(['mainMenu', True, MainMenu(self, self.screen)])
+        self.tasks.append(['difficultyMenu', False, DifficultyMenu(self, self.screen)])
+        self.tasks.append(['winMenu', False, WinMenu(self, self.screen)])
+        self.tasks.append(['game', False, Game(self, self.screen)])
+
+    def getTask(self, id):
+        for task in self.tasks:
+            if task[0] == id:
+                return task
+
+    def run(self):
+        # game loop - set self.playing = False to end the game
+        self.running = True
+        while self.running:
+            self.dt = self.clock.tick(FPS) / 1000.0
+            if self.change != '':
+                self.getTask(self.change)[1] = not task[1]
+                self.change = ''
+            for task in self.tasks:
+                if task[1]:
+                    self.events(task[2])
+                    if self.change != '':
+                        task[1] = not task[1]
+                    self.update(task[2])
+                    self.draw(task[2])
+
+    def quit(self):
+        pygame.quit()
+        sys.exit()
+
+    def update(self, task):
+        task.update()
+
+    def draw(self, task):
+        pygame.display.set_caption("{:.2f}".format(self.clock.get_fps()))
+        self.screen.fill(BLACK)
+        task.draw()
+        pygame.display.flip()
+
+    def events(self, task):
+        # catch all events here
         for event in pygame.event.get():
-            if event.type == const.QUIT or (event.type == const.KEYDOWN and event.key == const.K_ESCAPE):
-                running = False
-            if mainMenuLoop:
-                res = mainMenu.update(event)
-                if res == 'q':
-                    running = False
-                elif res == 'm':
-                    if multipleColor:
-                        multipleColor = False
-                        screen.fill(BLACK)
-                        mainMenu = Menu(screen, 4).addText('Mastermind', 60).addButton('Play', 'p').addButton('multiple colors: Off', 'm').addButton('Quit', 'q').render()
-                    else:
-                        multipleColor = True
-                        screen.fill(BLACK)
-                        mainMenu = Menu(screen, 4).addText('Mastermind', 60).addButton('Play', 'p').addButton('multiple colors: On', 'm').addButton('Quit', 'q').render()
-                elif res == 'p':
-                    screen.fill(BLACK)
-                    difficultyMenu = Menu(screen, 6).addText('Difficulty', 60).addButton('Easy', 'e', GREEN if difficultyLvl >= 0 else GREY).addButton('Medium', 'm', GREEN if difficultyLvl >= 1 else GREY).addButton('Hard', 'h', GREEN if difficultyLvl >= 2 else GREY).addButton('Extreme', 'ex', GREEN if difficultyLvl >= 3 else GREY).addButton('Armand', 'a', GREEN if difficultyLvl >= 4 else GREY)
-                    difficultyMenu.render()
-                    mainMenuLoop = False
-                    difficultyMenuLoop = True
-            elif difficultyMenuLoop:
-                res = difficultyMenu.update(event)
-                game = False
-                if res == 'e' and difficultyLvl >= 0:
-                    screen.fill(BLACK)
-                    game = Game(screen, 4, 2, 20).start(multipleColor)
-                elif res == 'm' and difficultyLvl >= 1:
-                    screen.fill(BLACK)
-                    game = Game(screen, 4, 5, 20).start(multipleColor)
-                elif res == 'h' and difficultyLvl >= 2:
-                    screen.fill(BLACK)
-                    game = Game(screen, 5, 5, 20).start(multipleColor)
-                elif res == 'ex' and difficultyLvl >= 3:
-                    screen.fill(BLACK)
-                    game = Game(screen, 5, 4, 20).start(multipleColor)
-                elif res == 'a' and difficultyLvl >= 4:
-                    screen.fill(BLACK)
-                    game = Game(screen, 7, 6, 20, 7).start(multipleColor)
-                if res == 'e' or res == 'm' or res == 'h' or res == 'ex' or res == 'a':
-                    if game:
-                        difficultyMenuLoop = False
-                        gameLoop = True
-            elif gameLoop:
-                status = game.update(event)
-                if status: #win
-                    difficultyLvl += 1
-                    mainMenuLoop = True
-                    gameLoop = False
-                    print('win')
-                    screen.fill(BLACK)
-                    mainMenu = Menu(screen, 5).addText('Mastermind', 60).addText('Win').addButton('Play', 'p').addButton('multiple colors: On' if multipleColor else 'multiple colors: Off', 'm').addButton('Quit', 'q').render()
-                elif status == False: #lose
-                    mainMenuLoop = True
-                    gameLoop = False
-                    print('lose')
-                    screen.fill(BLACK)
-                    mainMenu = Menu(screen, 5).addText('Mastermind', 60).addText('Lose ' + str(game.array_secret2).strip('[]')).addButton('Play', 'p').addButton('multiple colors: On' if multipleColor else 'multiple colors: Off', 'm').addButton('Quit', 'q').render()
+            if event.type == pygame.QUIT:
+                self.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.quit()
+            task.events(event)
 
-        pygame.display.flip( )
-    pygame.quit( )
-
-if __name__ == '__main__':
-    main()
+m = Main()
+#while True:
+m.new()
+m.run()
+m.quit()

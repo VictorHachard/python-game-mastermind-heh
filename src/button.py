@@ -6,7 +6,6 @@ class Button(object):
     """docstring for Button."""
 
     def __init__(self, screen):
-        super(Button, self).__init__()
         self.screen = screen
         self.x = 0
         self.y = 0

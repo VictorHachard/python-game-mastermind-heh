@@ -80,71 +80,84 @@ class Game(object):
         for text in self.texts:
             self.screen.blit(text[0], text[1])
 
+    def cickCircle(self, pos, event):
+        if self.vsPlayer:
+            right = event.button == 3 if True else False
+            for circle in self.circles[0]:
+                sqx = (pos[0] - circle.horizontal())**2
+                sqy = (pos[1] - circle.vertical())**2
+                if math.sqrt(sqx + sqy) < self.radius:
+                    circle.switch("desc" if right else "asc")
+        else:
+            if self.j <= self.row:
+                right = event.button == 3 if True else False
+                for circle in self.circles[self.j]:
+                    sqx = (pos[0] - circle.horizontal())**2
+                    sqy = (pos[1] - circle.vertical())**2
+                    if math.sqrt(sqx + sqy) < self.radius:
+                        circle.switch("desc" if right else "asc")
+
+    def cickButton(self, pos, event):
+        for button in self.buttons:
+            if button[0] == 'Menu' and button[1].isMouseIn(pos):
+                self.main.change = 'mainMenu'
+            if button[0] == 'Enter' and button[1].isMouseIn(pos) and self.j <= self.row:
+                if self.vsPlayer:
+                    if not self.canEnter(0):
+                        return
+                    self.vsPlayer = not self.vsPlayer
+                    for circle in self.circles[0]:
+                        i = 0
+                        for color in self.colors:
+                            if color[0] == circle.fill():
+                                self.secret.append([color[0], ''])
+                            i += 1
+                        circle.fill(DARKGREY)
+                    for j in range(1, self.row + 1):
+                        for circle in self.circles[j]:
+                            circle.fill(GREY)
+                else:
+                    self.verification()
+
+    def verification(self):
+        for secret in self.secret:
+            secret[1] = ''
+        if not self.canEnter(self.j):
+            return
+        place, present, i = 0, 0, 0
+        for circle in self.circles[self.j]:
+            if circle.fill() == self.secret[i][0]:
+                place += 1
+                self.secret[i][1] = 'bien'
+                circle.done(True)
+            i += 1
+        for circle in self.circles[self.j]:
+            for secret in self.secret:
+                if secret[1] == '' and not circle.done() and secret[0] == circle.fill():
+                    secret[1] = 'place'
+                    circle.done(True)
+                    present += 1
+        self.createText(str(place), str(present))
+        self.j += 1
+        if (place == self.column): #win
+            self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
+            self.main.getTask('difficultyMenu')[2].new()
+            self.main.change = 'winMenu'
+        if (self.j >= self.row + 1): #lose
+            self.buttons.pop(0)
+            self.showSecret()
+
+
+    def canEnter(self, j):
+        for circle in self.circles[j]:
+            if circle.fill() == 'grey':
+                return False
+        return True
+
     def events(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_F1:
                 self.showSecret()
         if event.type == pygame.MOUSEBUTTONUP:
-            pos = pygame.mouse.get_pos()
-            if self.vsPlayer:
-                right = event.button == 3 if True else False
-                for circle in self.circles[0]:
-                    sqx = (pos[0] - circle.horizontal())**2
-                    sqy = (pos[1] - circle.vertical())**2
-                    if math.sqrt(sqx + sqy) < self.radius:
-                        circle.switch("desc" if right else "asc")
-            else:
-                if self.j <= self.row:
-                    right = event.button == 3 if True else False
-                    for circle in self.circles[self.j]:
-                        sqx = (pos[0] - circle.horizontal())**2
-                        sqy = (pos[1] - circle.vertical())**2
-                        if math.sqrt(sqx + sqy) < self.radius:
-                            circle.switch("desc" if right else "asc")
-            for button in self.buttons:
-                if button[0] == 'Menu' and button[1].isMouseIn(pos):
-                    self.main.change = 'mainMenu'
-                if button[0] == 'Enter' and button[1].isMouseIn(pos) and self.j <= self.row:
-                    if self.vsPlayer:
-                        for circle in self.circles[0]:
-                            if circle.fill() == 'grey':
-                                return
-                        self.vsPlayer = not self.vsPlayer
-                        for circle in self.circles[0]:
-                            i = 0
-                            for color in self.colors:
-                                if color[0] == circle.fill():
-                                    self.secret.append([color[0], ''])
-                                i += 1
-                            circle.fill(DARKGREY)
-                        for j in range(1, self.row + 1):
-                            for circle in self.circles[j]:
-                                circle.fill(GREY)
-                    else:
-                        for secret in self.secret:
-                            secret[1] = ''
-                        for circle in self.circles[self.j]:
-                            if circle.fill() == 'grey':
-                                return
-                        place, present, i = 0, 0, 0
-                        for circle in self.circles[self.j]:
-                            if circle.fill() == self.secret[i][0]:
-                                place += 1
-                                self.secret[i][1] = 'bien'
-                                circle.done(True)
-                            i += 1
-                        for circle in self.circles[self.j]:
-                            for secret in self.secret:
-                                if secret[1] == '' and not circle.done() and secret[0] == circle.fill():
-                                    secret[1] = 'place'
-                                    circle.done(True)
-                                    present += 1
-                        self.createText(str(place), str(present))
-                        self.j += 1
-                        if (place == self.column): #win
-                            self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
-                            self.main.getTask('difficultyMenu')[2].new()
-                            self.main.change = 'winMenu'
-                        if (self.j >= self.row + 1): #lose
-                            self.buttons.pop(0)
-                            self.showSecret()
+            self.cickCircle(pygame.mouse.get_pos(), event)
+            self.cickButton(pygame.mouse.get_pos(), event)

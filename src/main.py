@@ -22,9 +22,12 @@ class Main(object):
 
     def load_data(self):
         game_folder = path.dirname(__file__)
-        imgage_folder = path.join(game_folder, 'imgage')
+        game_folder = path.join(game_folder, 'game_assets')
+        image_folder = path.join(game_folder, 'image')
         sound_folder = path.join(game_folder, 'sound')
         music_folder = path.join(game_folder, 'music')
+        print(path.join(image_folder, 'bg.jpg'))
+        self.background_image = pygame.transform.scale(pygame.image.load(path.join(image_folder, 'bg.jpg')).convert(), (800, 800))
 
     def new(self):
         self.change = ''

@@ -31,6 +31,7 @@ class MainMenu(object):
         pass
 
     def draw(self):
+        self.screen.blit(self.main.background_image, (0, 0))
         self.mainMenu.render()
 
     def events(self, event):

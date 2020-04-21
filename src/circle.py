@@ -6,7 +6,6 @@ class Circle(object):
     """docstring for Circle."""
 
     def __init__(self, screen, colors, x = 0, y = 0, radius = 20):
-        super(Circle, self).__init__()
         self.screen = screen
         self.colors = colors
         self.x, self.y = x, y

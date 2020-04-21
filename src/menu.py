@@ -8,7 +8,6 @@ class Menu(object):
     """docstring for Menu."""
 
     def __init__(self, screen, items):
-        super(Menu, self).__init__()
         self.items = []
         self.item = 0
         self.screen = screen

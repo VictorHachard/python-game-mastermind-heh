@@ -6,7 +6,6 @@ class Text(object):
     """docstring for Text."""
 
     def __init__(self, screen):
-        super(Text, self).__init__()
         self.screen = screen
         self.x = 0
         self.y = 0

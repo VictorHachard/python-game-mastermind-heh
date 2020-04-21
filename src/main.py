@@ -19,6 +19,12 @@ class Main(object):
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
         self.load_data()
+        self.change = ''
+        self.tasks = []
+        self.tasks.append(['mainMenu', True, MainMenu(self, self.screen)])
+        self.tasks.append(['difficultyMenu', False, DifficultyMenu(self, self.screen)])
+        self.tasks.append(['winMenu', False, WinMenu(self, self.screen)])
+        self.tasks.append(['game', False, None])
 
     def load_data(self):
         game_folder = path.dirname(__file__)
@@ -29,21 +35,12 @@ class Main(object):
         print(path.join(image_folder, 'bg.jpg'))
         self.background_image = pygame.transform.scale(pygame.image.load(path.join(image_folder, 'bg.jpg')).convert(), (800, 800))
 
-    def new(self):
-        self.change = ''
-        self.tasks = []
-        self.tasks.append(['mainMenu', True, MainMenu(self, self.screen)])
-        self.tasks.append(['difficultyMenu', False, DifficultyMenu(self, self.screen)])
-        self.tasks.append(['winMenu', False, WinMenu(self, self.screen)])
-        self.tasks.append(['game', False, None])
-
     def getTask(self, id):
         for task in self.tasks:
             if task[0] == id:
                 return task
 
     def run(self):
-        # game loop - set self.playing = False to end the game
         self.running = True
         while self.running:
             self.dt = self.clock.tick(FPS) / 1000.0
@@ -82,7 +79,5 @@ class Main(object):
             task.events(event)
 
 m = Main()
-#while True:
-m.new()
 m.run()
 m.quit()

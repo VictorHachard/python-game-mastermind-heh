@@ -114,7 +114,7 @@ class Game(object):
                             i = 0
                             for color in self.colors:
                                 if color[0] == circle.fill():
-                                    self.secret.append([color[0][i], ''])
+                                    self.secret.append([color[0], ''])
                                 i += 1
                             circle.fill(DARKGREY)
                         for j in range(1, self.row + 1):

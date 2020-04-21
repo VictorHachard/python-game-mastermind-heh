@@ -1,8 +1,10 @@
 import pygame
 from settings import *
 from pygame import locals as const
-from button import Button
-from text import Text
+from Items.button import Button
+from Items.text import Text
+from Menus.game import Game
+
 
 class Menu(object):
     """docstring for Menu."""

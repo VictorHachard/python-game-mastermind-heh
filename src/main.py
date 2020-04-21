@@ -3,14 +3,14 @@ import sys
 from os import path
 from settings import *
 from pygame import locals as const
-from game import Game
-from difficultyMenu import DifficultyMenu
-from mainMenu import MainMenu
-from winMenu import WinMenu
-from scoreMenu import ScoreMenu
-from gameModeMenu import GameModeMenu
-from ruleMenu import RuleMenu
-from sprites import *
+from Menus.game import Game
+from Menus.difficultyMenu import DifficultyMenu
+from Menus.mainMenu import MainMenu
+from Menus.winMenu import WinMenu
+from Menus.scoreMenu import ScoreMenu
+from Menus.gameModeMenu import GameModeMenu
+from Menus.ruleMenu import RuleMenu
+from Items.sprites import *
 
 class Main(object):
     """docstring for Main."""

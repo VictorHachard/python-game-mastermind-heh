@@ -1,9 +1,11 @@
 import pygame
 from settings import *
 from pygame import locals as const
-from button import Button
-from text import Text
-from menu import Menu
+from Items.button import Button
+from Items.text import Text
+from Menus.menu import Menu
+from Menus.game import Game
+
 
 class MainMenu(object):
     """docstring for MainMenu. Cette classe est la classe responsable de la creation et personnalisatioon du mainMenu"""

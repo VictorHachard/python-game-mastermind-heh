@@ -1,4 +1,4 @@
-import pygame
+import pygame, random
 from settings import *
 from pygame import locals as const
 from Items.button import Button
@@ -15,6 +15,9 @@ class MainMenu(object):
         self.main = main
         self.screen = screen
         self.new()
+        self.isPawnFalling = False
+        self.fallingPawnX = 0
+        self.fallingPawnY = -80
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
@@ -29,6 +32,7 @@ class MainMenu(object):
     def draw(self):
         """cette méthode permet de placer les element a render"""
         self.screen.blit(self.main.background_image, (0, 0))
+        self.drawFallingPawn()
         self.mainMenu.render()
 
     def events(self, event):
@@ -44,3 +48,23 @@ class MainMenu(object):
             self.main.change = 'scoreMenu'
         elif res == 'r':
             self.main.change = 'ruleMenu'
+
+    def handleFallingPawnSpawn(self):
+        if self.isPawnFalling == False:
+            self.fallingPawnX= random.randint(1, WIDTH-81)
+            self.fallingPawnY= -80
+            self.isPawnFalling= True
+
+        else:
+            self.fallingPawnUpdatePos()
+
+    def fallingPawnUpdatePos(self):
+        if(self.fallingPawnY< HEIGHT-80):
+            self.fallingPawnY= self.fallingPawnY+2
+        else:
+            self.isPawnFalling= False
+
+    def drawFallingPawn(self):
+        self.handleFallingPawnSpawn()
+        self.screen.blit(self.main.fallingRedPawn, (self.fallingPawnX, self.fallingPawnY))
+

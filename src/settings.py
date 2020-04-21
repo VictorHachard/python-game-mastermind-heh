@@ -13,6 +13,17 @@ CYAN = (0, 255, 255)
 PURPLE = (128, 0, 128)
 COLORS = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN], ['purple', PURPLE]]
 
+BALL = {'red': 'red.png',
+        'green': 'green.png',
+        'orange': 'orange.png',
+        'blue': 'blue.png',
+        'yellow': 'yellow.png',
+        'purple': 'purple.png',
+        'cyan': 'cyan.png',
+        'dark': 'dark.png',
+        'grey': 'grey.png',
+        'darkgrey': 'darkgrey.png'}
+
 # game settings
 WIDTH = 800
 HEIGHT = 800
@@ -20,6 +31,6 @@ FPS = 60
 TITLE = "Mastermind"
 
 # Sounds
-BG_MUSIC = 'espionage.ogg'
+BG_MUSIC = 'bg.mp3'
 EFFECTS_SOUNDS = {'click_button': 'health_pack.wav',
                   'victory': 'victory.wav'}

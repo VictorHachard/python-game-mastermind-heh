@@ -10,6 +10,8 @@ from Menus.winMenu import WinMenu
 from Menus.scoreMenu import ScoreMenu
 from Menus.gameModeMenu import GameModeMenu
 from Menus.ruleMenu import RuleMenu
+from Menus.loseMenu import LoseMenu
+from Menus.settingsMenu import SettingsMenu
 from Items.sprites import *
 
 class Main(object):
@@ -32,6 +34,8 @@ class Main(object):
         self.tasks.append(['scoreMenu', False, ScoreMenu(self, self.screen)])
         self.tasks.append(['gameModeMenu', False, GameModeMenu(self, self.screen)])
         self.tasks.append(['ruleMenu', False, RuleMenu(self, self.screen)])
+        self.tasks.append(['loseMenu', False, LoseMenu(self, self.screen)])
+        self.tasks.append(['settingsMenu', False, SettingsMenu(self, self.screen)])
         self.tasks.append(['game', False, None])
         pygame.mixer.music.play(loops=-1)
 
@@ -42,16 +46,20 @@ class Main(object):
         self.image_folder = path.join(game_folder, 'image')
         sound_folder = path.join(game_folder, 'sound')
         music_folder = path.join(game_folder, 'music')
-        self.board = pygame.transform.scale(self.load_image('board.png'), (800, 800))
+        self.board = pygame.transform.scale(self.load_image('board.png').convert(), (800, 800))
+        self.hole = pygame.transform.scale(self.load_image('hole.png').convert_alpha(), (60, 60))
         #self.anim = [self.load_image('1.jpg'), self.load_image('2.jpg'), self.load_image('3.png')]
-        self.background_image = pygame.transform.scale(self.load_image('bg.jpg'), (800, 800))
+        self.background_image = pygame.transform.scale(self.load_image('bg.png').convert(), (800, 800))
         pygame.mixer.music.load(path.join(music_folder, BG_MUSIC))
         self.effects_sounds = {}
+        self.balls = {}
+        for type in BALL:
+            self.balls[type] = pygame.transform.scale(self.load_image(BALL[type]).convert_alpha(), (70, 70))
         for type in EFFECTS_SOUNDS:
             self.effects_sounds[type] = pygame.mixer.Sound(path.join(sound_folder, EFFECTS_SOUNDS[type]))
 
     def load_image(self, name):
-        return pygame.image.load(path.join(self.image_folder, name)).convert()
+        return pygame.image.load(path.join(self.image_folder, name))
 
     def getTask(self, id):
         for task in self.tasks:

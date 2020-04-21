@@ -20,7 +20,7 @@ class WinMenu(object):
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
         self.difficultyLvl = 0
-        self.winMenu = Menu(self.screen, self.main, 6).addText('win', 60).addButton('Menu', 'm')
+        self.winMenu = Menu(self.screen, self.main, 6).addText('Win', 60).addButton('Menu', 'm')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 
@@ -31,6 +31,7 @@ class WinMenu(object):
 
     def draw(self):
         """cette méthode permet de placer les element a render"""
+        self.screen.blit(self.main.background_image, (0, 0))
         self.winMenu.render()
 
     def events(self, event):

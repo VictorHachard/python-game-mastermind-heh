@@ -27,6 +27,7 @@ class RuleMenu(object):
 
     def draw(self):
         """cette méthode permet de placer les element a render"""
+        self.screen.blit(self.main.background_image, (0, 0))
         self.ruleMenu.render()
 
     def events(self, event):

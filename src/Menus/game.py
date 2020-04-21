@@ -8,7 +8,7 @@ from Items.circle import Circle
 class Game(object):
     """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""
 
-    def __init__(self, main, screen, column = 4, row = 6, radius = 20, color = 5):
+    def __init__(self, main, screen, column = 4, row = 6, radius = 30, color = 5, offeset = 0):
         """dans ce constructeur on y défini les paramètres du niveau comme le nombre de lignes, colonnes et le nombre de couleur. On a mis des valeurs par défault pour
         les games de base. Les attributs de la lignes 21 a 25 sont des tableaux comprenant respectivement les éléments du game. currentRow est la l'essai auquel on est
         actuellement donc 1 par default."""
@@ -18,6 +18,7 @@ class Game(object):
         self.color = color
         self.colors = COLORS[:color]
         self.radius = radius
+        self.offeset = offeset
 
         self.font = pygame.font.SysFont('comicsans', 20)
         self.secret = []
@@ -60,7 +61,7 @@ class Game(object):
         """cette méthode est appellée dans la méthode new et sert a créer un cerle en gris et le placer dans le game"""
         marginX = int((WIDTH - (self.radius * self.column)) / (self.column + 2))
         marginY = int((HEIGHT - 40 - (self.radius * (self.row + 1))) / (self.row + 2))
-        circle = Circle(self.screen, self.colors).horizontal(marginX + i * (marginX + self.radius)).vertical(marginY + j * (marginY + self.radius)).size(self.radius)
+        circle = Circle(self.main, self.screen, self.colors).horizontal(marginX + i * (marginX + self.radius)).vertical(marginY + j * (marginY + self.radius)).size(self.radius)
         if j == 0 and not self.vsPlayer:
             circle.fill(DARKGREY)
         elif j != 0 and self.vsPlayer:
@@ -113,7 +114,10 @@ class Game(object):
          est appellée si le player 1 n'était pas en train de générer le secret"""
         for button in self.buttons:
             if button[0] == 'Menu' and button[1].isMouseIn(pos):
-                self.main.change = 'mainMenu'
+                if (self.currentRow >= self.row + 1):
+                    self.main.change = 'loseMenu'
+                else:
+                    self.main.change = 'mainMenu'
             if button[0] == 'Enter' and button[1].isMouseIn(pos) and self.currentRow <= self.row:
                 if self.vsPlayer:
                     if not self.canEnter(0):
@@ -131,8 +135,6 @@ class Game(object):
                             circle.fill(GREY)
                 else:
                     self.verification()
-
-
 
     def verification(self):
         """cette méthode est appellée après chaque essai de combinaison, elle vérifie si la combinanaison est bonne ou pas."""

@@ -5,8 +5,9 @@ from pygame import locals as const
 class Circle(object):
     """docstring for Circle."""
 
-    def __init__(self, screen, colors, x = 0, y = 0, radius = 20):
+    def __init__(self, main, screen, colors, x = 0, y = 0, radius = 30):
         self.screen = screen
+        self.main = main
         self.colors = colors
         self.x, self.y = x, y
         self.radius = radius
@@ -89,5 +90,10 @@ class Circle(object):
 
     def render(self):
         """Render the circle, return this"""
-        pygame.draw.circle(self.screen, self.color, (self.x, self.y), self.radius)
+        self.screen.blit(self.main.hole, (self.x - self.radius - 10, self.y - self.radius - 10))
+        if not self.colorStr == 'grey' and not self.color == DARKGREY:
+            self.screen.blit(self.main.balls[self.colorStr], (self.x - self.radius - 15, self.y - self.radius - 15))
+        elif self.color == DARKGREY:
+            self.screen.blit(self.main.balls['darkgrey'], (self.x - self.radius - 15, self.y - self.radius - 15))
+        #pygame.draw.circle(self.screen, self.color, (self.x, self.y), self.radius)
         return self

@@ -22,31 +22,34 @@ class DifficultyMenu(object):
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 
-    """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
-
     def update(self):
         pass
 
     def draw(self):
         """cette méthode permet de placer les element a render"""
+        self.screen.blit(self.main.background_image, (0, 0))
         self.difficultyMenu.render()
 
     def events(self, event):
         """cette méthode gere les input du clavier et les traite en conséquence"""
         game = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_F2:
+                self.difficultyLvl = 10
+                self.new()
         res = self.difficultyMenu.update(event)
         if res == 'menu':
             self.main.change = 'mainMenu'
         elif res == 'e' and self.difficultyLvl >= 0:
             game = Game(self.main, self.screen)
         elif res == 'm' and self.difficultyLvl >= 1:
-             game = Game(self.main, self.screen, column = 4, row = 4)
+            game = Game(self.main, self.screen, column = 4, row = 4)
         elif res == 'h' and self.difficultyLvl >= 2:
             game = Game(self.main, self.screen, column = 5, row = 5)
         elif res == 'ex' and self.difficultyLvl >= 3:
-            game = Game(self.main, self.screen, column = 6, row = 6)
+            game = Game(self.main, self.screen, column = 6, row = 6, colors = 7)
         elif res == 'a' and self.difficultyLvl >= 4:
-            game = Game(self.main, self.screen, column = 7, row = 6)
+            game = Game(self.main, self.screen, column = 7, row = 6, colors = 7)
         if res == 'e' or res == 'm' or res == 'h' or res == 'ex' or res == 'a':
             if game:
                 self.main.getTask('game')[2] = game

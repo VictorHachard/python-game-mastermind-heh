@@ -6,8 +6,6 @@ from Items.text import Text
 from Menus.menu import Menu
 from Menus.game import Game
 
-
-
 class ScoreMenu(object):
     """docstring for ScoreMenu."""
 
@@ -16,7 +14,7 @@ class ScoreMenu(object):
         self.main = main
         self.screen = screen
         self.start = time.time()
-        self.file = "../score.txt"
+        self.file = "./score.txt"
         self.score = 0
         self.score = self.read_file()
         self.new()
@@ -33,7 +31,6 @@ class ScoreMenu(object):
                 fp.write(str(self.score))
 
     def read_file(self):
-        return 
         with open(self.file) as fp:
             score = int(fp.read())
             return score
@@ -49,7 +46,7 @@ class ScoreMenu(object):
 
     def draw(self):
         """cette méthode permet de placer les element a render"""
-        #self.screen.blit(self.main.background_image, (0, 0))
+        self.screen.blit(self.main.background_image, (0, 0))
         self.scoreMenu.render()
 
     def events(self, event):

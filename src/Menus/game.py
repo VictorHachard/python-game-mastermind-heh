@@ -8,7 +8,7 @@ from Items.circle import Circle
 class Game(object):
     """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""
 
-    def __init__(self, main, screen, column = 4, row = 6, radius = 20, colors = 5, offeset = 0):
+    def __init__(self, main, screen, column = 4, row = 6, radius = 24, colors = 5, offeset = 0):
         """dans ce constructeur on y défini les paramètres du niveau comme le nombre de lignes, colonnes et le nombre de couleur. On a mis des valeurs par défault pour
         les games de base. Les attributs de la lignes 21 a 25 sont des tableaux comprenant respectivement les éléments du game. currentRow est la l'essai auquel on est
         actuellement donc 1 par default."""
@@ -48,16 +48,16 @@ class Game(object):
         marginY = int((WIDTH - 40 - (self.radius * (self.row + 1))) / (self.row + 2))
         for n in range(1, self.row + 1):
             x = marginX + self.column * (marginX + self.radius)
-            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius) - 10).size(10))
-            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 25).vertical(marginY + n * (marginY + self.radius) - 10).size(10))
+            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius) - 10).size(12))
+            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 25).vertical(marginY + n * (marginY + self.radius) - 10).size(12))
             if self.column >= 5:
-                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 50).vertical(marginY + n * (marginY + self.radius) - 10).size(10))
+                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 50).vertical(marginY + n * (marginY + self.radius) - 10).size(12))
             if self.column >= 7:
-                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 75).vertical(marginY + n * (marginY + self.radius) - 10).size(10))
-            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius) + 15).size(10))
-            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 25).vertical(marginY + n * (marginY + self.radius) + 15).size(10))
+                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 75).vertical(marginY + n * (marginY + self.radius) - 10).size(12))
+            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius) + 15).size(12))
+            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 25).vertical(marginY + n * (marginY + self.radius) + 15).size(12))
             if self.column >= 6:
-                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 50).vertical(marginY + n * (marginY + self.radius) + 15).size(10))
+                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 50).vertical(marginY + n * (marginY + self.radius) + 15).size(12))
         self.buttons.append(['Enter', Button(self.screen, self.main).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60, menu = False)])
         self.buttons.append(['Menu', Button(self.screen, self.main).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60, menu = False)])
 

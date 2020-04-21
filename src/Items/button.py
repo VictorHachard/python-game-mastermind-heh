@@ -11,7 +11,7 @@ class Button(object):
         self.x = 0
         self.y = 0
 
-    def createButton(self, point, text, fontSize = 40, colorRect = GREY, colorText = WHITE, menu = True):
+    def createButton(self, point, text, fontSize = 40, colorRect = GREY, colorText = BLACK, menu = True):
         """Create the object Text, return this"""
         if self.x == 0:
             self.x = point[0]

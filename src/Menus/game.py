@@ -87,9 +87,9 @@ class Game(object):
     def createHints(self, place, present):
         """Apres chaque essai les indices Placment et Présent sont placés a coté de chaque row apres avoir tenté un essai"""
         for n in range(0, place):
-            self.circles_empty_secret[n + 4 * (self.currentRow - 1)].fill('dark')
+            self.circles_empty_secret[n + self.column * (self.currentRow - 1)].fill('dark')
         for n in range(place, place + present):
-            self.circles_empty_secret[n + 4 * (self.currentRow - 1)].fill('white')
+            self.circles_empty_secret[n + self.column * (self.currentRow - 1)].fill('white')
 
     def draw(self):
         """cette méthode est la meme que les méthodes draw() des menus est elle lancée dans la méthode run du main"""

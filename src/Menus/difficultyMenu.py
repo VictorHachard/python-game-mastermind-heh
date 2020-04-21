@@ -18,7 +18,7 @@ class DifficultyMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur (difficltyLVL)"""
-        self.difficultyMenu = Menu(self.screen, self.main, 7, 2).addText('Difficulty', 60).addButton('Easy', 'e', GREEN if self.difficultyLvl >= 0 else GREY).addButton('Medium', 'm', GREEN if self.difficultyLvl >= 1 else GREY).addButton('Hard', 'h', GREEN if self.difficultyLvl >= 2 else GREY).addButton('Extreme', 'ex', GREEN if self.difficultyLvl >= 3 else GREY).addButton('Armand', 'a', GREEN if self.difficultyLvl >= 4 else GREY).addButton('Menu', 'menu')
+        self.difficultyMenu = Menu(self.screen, self.main, 7, 2).addText('Difficulty', 60).addButton('Easy', 'e', GREEN if self.difficultyLvl >= 0 else BLACK).addButton('Medium', 'm', GREEN if self.difficultyLvl >= 1 else BLACK).addButton('Hard', 'h', GREEN if self.difficultyLvl >= 2 else BLACK).addButton('Extreme', 'ex', GREEN if self.difficultyLvl >= 3 else BLACK).addButton('Armand', 'a', GREEN if self.difficultyLvl >= 4 else BLACK).addButton('Menu', 'menu')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 

@@ -27,13 +27,13 @@ class Menu(object):
                         self.main.effects_sounds['click_button'].play()
                         return button[2]
 
-    def addButton(self, text, id, color = GREY):
+    def addButton(self, text, id, color = BLACK):
         """Add a button"""
-        self.items.append(['button', Button(self.screen, self.main).center().createButton([0, self.itemsPos[self.item]], text, 60, color), id])
+        self.items.append(['button', Button(self.screen, self.main).center().createButton([0, self.itemsPos[self.item]], text, 60, colorText = color), id])
         self.item = self.item + 1
         return self
 
-    def addText(self, text, fontSize = 40, colorText = WHITE):
+    def addText(self, text, fontSize = 40, colorText = BLACK):
         """Add a text"""
         self.items.append(['text', Text(self.screen).center().createText([0, self.itemsPos[self.item]], text, fontSize, colorText)])
         self.item = self.item + 1

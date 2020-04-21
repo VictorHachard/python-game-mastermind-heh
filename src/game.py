@@ -88,8 +88,9 @@ class Game(object):
         for text in self.texts:
             self.screen.blit(text[0], text[1])
 
-    def cickCircle(self, pos, event):
-        """"""
+    def clickCircle(self, pos, event):
+        """cette méthode sert a détecter si la souris a cliqué dans un cercle, cela est fait grace a la boucle for qui check chaque circle grace a la formule
+        de la racine carrée. Le 1er if sert a checker si le mode 2 joueurs est activé. """
         if self.vsPlayer:
             right = event.button == 3 if True else False
             for circle in self.circles[0]:
@@ -106,7 +107,10 @@ class Game(object):
                     if math.sqrt(sqx + sqy) < self.radius:
                         circle.switch("desc" if right else "asc")
 
-    def cickButton(self, pos, event):
+    def clickButton(self, pos, event):
+        """cette méthode passe en revue tout les bouttons grace a la boucle for numero 1, si c'est le boutton menu on retourne au menu, si c'est le boutton enter alors
+        on vérifie si on joue avec un autre joueur, si non, alors il attends que le joueur 1 le génère. A la fin de cette méthode la méthode la méthode verification
+         est appellée si le player 1 n'était pas en train de générer le secret"""
         for button in self.buttons:
             if button[0] == 'Menu' and button[1].isMouseIn(pos):
                 self.main.change = 'mainMenu'
@@ -128,7 +132,10 @@ class Game(object):
                 else:
                     self.verification()
 
+
+
     def verification(self):
+        """cette méthode est appellée après chaque essai de combinaison, elle vérifie si la combinanaison est bonne ou pas."""
         for secret in self.secret:
             secret[1] = ''
         if not self.canEnter(self.currentRow):
@@ -159,15 +166,17 @@ class Game(object):
 
 
     def canEnter(self, j):
+        """cette méthode vérifie si toute les cases de la ligne ont étés remplies, si oui return true sinon return false"""
         for circle in self.circles[j]:
             if circle.fill() == 'grey':
                 return False
         return True
 
     def events(self, event):
+        """meme méthode que event des menus, est appellée dans le main pour afficher les events"""
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_F1:
                 self.showSecret()
         if event.type == pygame.MOUSEBUTTONUP:
-            self.cickCircle(pygame.mouse.get_pos(), event)
-            self.cickButton(pygame.mouse.get_pos(), event)
+            self.clickCircle(pygame.mouse.get_pos(), event)
+            self.clickButton(pygame.mouse.get_pos(), event)

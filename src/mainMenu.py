@@ -12,22 +12,12 @@ class MainMenu(object):
         """"Dans ce constructeur on initialise les variables de classe et on appelle la méthode new(self)"""
         self.main = main
         self.screen = screen
-        self.colorMode = False
-        self.vsPlayer = False
         self.new()
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.mainMenu = Menu(self.screen, 5).addText('Mastermind', 60).addButton('Play', 'p')
-        if self.colorMode:
-            self.mainMenu.addButton('multiple colors: On', 'm')
-        else:
-            self.mainMenu.addButton('multiple colors: Off', 'm')
-        if self.vsPlayer:
-            self.mainMenu.addButton('vs: Player 2', 'v')
-        else:
-            self.mainMenu.addButton('vs: IA', 'v')
-        self.mainMenu.addButton('Quit', 'q')
+        self.mainMenu = Menu(self.screen, 6).addText('Mastermind', 60).addButton('Play', 'p').addButton('Game Mode', 'o')
+        self.mainMenu.addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 
@@ -46,9 +36,9 @@ class MainMenu(object):
             self.main.running = False
         elif res == 'p':
             self.main.change = 'difficultyMenu'
-        elif res == 'm':
-            self.colorMode = not self.colorMode
-            self.new()
-        elif res == 'v':
-            self.vsPlayer = not self.vsPlayer
-            self.new()
+        elif res == 'o':
+            self.main.change = 'gameModeMenu'
+        elif res == 'h':
+            self.main.change = 'scoreMenu'
+        elif res == 'r':
+            self.main.change = 'ruleMenu'

@@ -25,9 +25,9 @@ class Game(object):
         self.new()
 
     def new(self):
-        self.vsPlayer = self.main.getTask('mainMenu')[2].vsPlayer #To Move
+        self.vsPlayer = self.main.getTask('gameModeMenu')[2].vsPlayer #To Move
         if not self.vsPlayer:
-            self.colorMode = self.main.getTask('mainMenu')[2].colorMode #To Move
+            self.colorMode = self.main.getTask('gameModeMenu')[2].colorMode #To Move
             secrets = [random.randint(0, len(self.colors) - 1) for i in range(self.column)] if self.colorMode else random.sample(range(0, len(self.colors)), self.column)
             for secret in secrets:
                 self.secret.append([self.colors[secret][0], ''])
@@ -72,6 +72,7 @@ class Game(object):
         self.texts.append([text2, (x, marginY + self.j * (marginY + self.radius) + 12 - text2.get_height())])
 
     def draw(self):
+        self.screen.blit(self.main.board, (0, 0))
         for j in range(self.row + 1):
             for circle in self.circles[j]:
                 circle.render()
@@ -142,6 +143,7 @@ class Game(object):
         if (place == self.column): #win
             self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
             self.main.getTask('difficultyMenu')[2].new()
+            self.main.getTask('scoreMenu')[2].addScore()
             self.main.change = 'winMenu'
         if (self.j >= self.row + 1): #lose
             self.buttons.pop(0)

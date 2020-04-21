@@ -7,6 +7,9 @@ from game import Game
 from difficultyMenu import DifficultyMenu
 from mainMenu import MainMenu
 from winMenu import WinMenu
+from scoreMenu import ScoreMenu
+from gameModeMenu import GameModeMenu
+from ruleMenu import RuleMenu
 from sprites import *
 
 class Main(object):
@@ -26,17 +29,24 @@ class Main(object):
         self.tasks.append(['mainMenu', True, MainMenu(self, self.screen)])
         self.tasks.append(['difficultyMenu', False, DifficultyMenu(self, self.screen)])
         self.tasks.append(['winMenu', False, WinMenu(self, self.screen)])
+        self.tasks.append(['scoreMenu', False, ScoreMenu(self, self.screen)])
+        self.tasks.append(['gameModeMenu', False, GameModeMenu(self, self.screen)])
+        self.tasks.append(['ruleMenu', False, RuleMenu(self, self.screen)])
         self.tasks.append(['game', False, None])
 
     def load_data(self):
         """charge le path de tout les assets"""
         game_folder = path.dirname(__file__)
         game_folder = path.join(game_folder, 'game_assets')
-        image_folder = path.join(game_folder, 'image')
+        self.image_folder = path.join(game_folder, 'image')
         sound_folder = path.join(game_folder, 'sound')
         music_folder = path.join(game_folder, 'music')
-        print(path.join(image_folder, 'bg.jpg'))
-        self.background_image = pygame.transform.scale(pygame.image.load(path.join(image_folder, 'bg.jpg')).convert(), (800, 800))
+        self.board = pygame.transform.scale(self.load_image('board.png'), (800, 800))
+        #self.anim = [self.load_image('1.jpg'), self.load_image('2.jpg'), self.load_image('3.png')]
+        self.background_image = pygame.transform.scale(self.load_image('bg.jpg'), (800, 800))
+
+    def load_image(self, name):
+        return pygame.image.load(path.join(self.image_folder, name)).convert()
 
     def getTask(self, id):
         for task in self.tasks:

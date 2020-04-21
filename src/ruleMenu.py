@@ -11,18 +11,18 @@ class RuleMenu(object):
     def __init__(self, main, screen):
         self.main = main
         self.screen = screen
-        self.colorMode = False
-        self.vsPlayer = False
         self.new()
 
     def new(self):
-        pass
+        self.ruleMenu = Menu(self.screen, 2).addText('Rules', 60).addButton('Menu', 'm')
 
     def update(self):
         pass
 
     def draw(self):
-        pass
+        self.ruleMenu.render()
 
     def events(self, event):
-        pass
+        res = self.ruleMenu.update(event)
+        if res == 'm':
+            self.main.change = 'mainMenu'

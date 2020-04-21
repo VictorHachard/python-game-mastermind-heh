@@ -7,11 +7,11 @@ from text import Text
 class Menu(object):
     """docstring for Menu."""
 
-    def __init__(self, screen, items):
+    def __init__(self, screen, items, offset = 0):
         self.items = []
         self.item = 0
         self.screen = screen
-        self.height = HEIGHT - items * 20 - 40
+        self.height = HEIGHT - (items - offset) * 20 - 40
         self.itemsPos = [(self.height / items * x) for x in range(items)]
         self.itemsPos = [self.itemsPos[x] + 40 for x in range(items)]
 

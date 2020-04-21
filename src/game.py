@@ -6,9 +6,12 @@ from text import Text
 from circle import Circle
 
 class Game(object):
-    """docstring for Game."""
+    """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""
 
     def __init__(self, main, screen, column = 4, row = 6, radius = 20, color = 5):
+        """dans ce constructeur on y défini les paramètres du niveau comme le nombre de lignes, colonnes et le nombre de couleur. On a mis des valeurs par défault pour
+        les games de base. Les attributs de la lignes 21 a 25 sont des tableaux comprenant respectivement les éléments du game. currentRow est la l'essai auquel on est
+        actuellement donc 1 par default."""
         self.main = main
         self.screen = screen
         self.column, self.row = column, row
@@ -21,10 +24,12 @@ class Game(object):
         self.circles = []
         self.buttons = []
         self.texts = []
-        self.j = 1
+        self.currentRow = 1
         self.new()
 
     def new(self):
+        """new est appellé dans le constructeur, dans cette méthode on génére la combinaison secrete en fonction de si le mode multiColors est activé. Ensuite les
+        lignes 40 a 43 créent les cercles et les placent dans la variable de classe circles. Les 2 derniere lignes ajoutent les 2 bouttons au game"""
         self.vsPlayer = self.main.getTask('gameModeMenu')[2].vsPlayer #To Move
         if not self.vsPlayer:
             self.colorMode = self.main.getTask('gameModeMenu')[2].colorMode #To Move
@@ -52,6 +57,7 @@ class Game(object):
             i += 1
 
     def createCircle(self, i, j):
+        """cette méthode est appellée dans la méthode new et sert a créer un cerle en gris et le placer dans le game"""
         marginX = int((WIDTH - (self.radius * self.column)) / (self.column + 2))
         marginY = int((HEIGHT - 40 - (self.radius * (self.row + 1))) / (self.row + 2))
         circle = Circle(self.screen, self.colors).horizontal(marginX + i * (marginX + self.radius)).vertical(marginY + j * (marginY + self.radius)).size(self.radius)
@@ -61,17 +67,18 @@ class Game(object):
             circle.fill(DARKGREY)
         self.circles[j].append(circle)
 
-    def createText(self, text1, text2):
-        """Set the result text after rool the turn"""
+    def createHints(self, text1, text2):
+        """Apres chaque essai les indices Placment et Présent sont placés a coté de chaque row apres avoir tenté un essai"""
         text1 = self.font.render('Placement : ' + text1, 1, WHITE)
         text2 = self.font.render('Present   : ' + text2, 1, WHITE)
         marginX = int((HEIGHT - 30 - (self.radius * (self.column))) / (self.column + 2))
         marginY = int((WIDTH - 40 - (self.radius * (self.row + 1))) / (self.row + 2))
         x = marginX + self.column * (marginX + self.radius)
-        self.texts.append([text1, (x, marginY + self.j * (marginY + self.radius) - text1.get_height())])
-        self.texts.append([text2, (x, marginY + self.j * (marginY + self.radius) + 12 - text2.get_height())])
+        self.texts.append([text1, (x, marginY + self.currentRow * (marginY + self.radius) - text1.get_height())])
+        self.texts.append([text2, (x, marginY + self.currentRow * (marginY + self.radius) + 12 - text2.get_height())])
 
     def draw(self):
+        """cette méthode est la meme que les méthodes draw() des menus est elle lancée dans la méthode run du main"""
         self.screen.blit(self.main.board, (0, 0))
         for j in range(self.row + 1):
             for circle in self.circles[j]:
@@ -82,6 +89,7 @@ class Game(object):
             self.screen.blit(text[0], text[1])
 
     def cickCircle(self, pos, event):
+        """"""
         if self.vsPlayer:
             right = event.button == 3 if True else False
             for circle in self.circles[0]:
@@ -90,9 +98,9 @@ class Game(object):
                 if math.sqrt(sqx + sqy) < self.radius:
                     circle.switch("desc" if right else "asc")
         else:
-            if self.j <= self.row:
+            if self.currentRow <= self.row:
                 right = event.button == 3 if True else False
-                for circle in self.circles[self.j]:
+                for circle in self.circles[self.currentRow]:
                     sqx = (pos[0] - circle.horizontal())**2
                     sqy = (pos[1] - circle.vertical())**2
                     if math.sqrt(sqx + sqy) < self.radius:
@@ -102,7 +110,7 @@ class Game(object):
         for button in self.buttons:
             if button[0] == 'Menu' and button[1].isMouseIn(pos):
                 self.main.change = 'mainMenu'
-            if button[0] == 'Enter' and button[1].isMouseIn(pos) and self.j <= self.row:
+            if button[0] == 'Enter' and button[1].isMouseIn(pos) and self.currentRow <= self.row:
                 if self.vsPlayer:
                     if not self.canEnter(0):
                         return
@@ -123,29 +131,29 @@ class Game(object):
     def verification(self):
         for secret in self.secret:
             secret[1] = ''
-        if not self.canEnter(self.j):
+        if not self.canEnter(self.currentRow):
             return
         place, present, i = 0, 0, 0
-        for circle in self.circles[self.j]:
+        for circle in self.circles[self.currentRow]:
             if circle.fill() == self.secret[i][0]:
                 place += 1
                 self.secret[i][1] = 'bien'
                 circle.done(True)
             i += 1
-        for circle in self.circles[self.j]:
+        for circle in self.circles[self.currentRow]:
             for secret in self.secret:
                 if secret[1] == '' and not circle.done() and secret[0] == circle.fill():
                     secret[1] = 'place'
                     circle.done(True)
                     present += 1
-        self.createText(str(place), str(present))
-        self.j += 1
+        self.createHints(str(place), str(present))
+        self.currentRow += 1
         if (place == self.column): #win
             self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
             self.main.getTask('difficultyMenu')[2].new()
             self.main.getTask('scoreMenu')[2].addScore()
             self.main.change = 'winMenu'
-        if (self.j >= self.row + 1): #lose
+        if (self.currentRow >= self.row + 1): #lose
             self.buttons.pop(0)
             self.showSecret()
 

@@ -29,7 +29,7 @@ class Menu(object):
 
     def addButton(self, text, id, color = GREY):
         """Add a button"""
-        self.items.append(['button', Button(self.screen).center().createButton([0, self.itemsPos[self.item]], text, 60, color), id])
+        self.items.append(['button', Button(self.screen, self.main).center().createButton([0, self.itemsPos[self.item]], text, 60, color), id])
         self.item = self.item + 1
         return self
 

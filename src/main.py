@@ -50,6 +50,7 @@ class Main(object):
         self.hole = self.load_image('hole.png').convert_alpha()
         #self.anim = [self.load_image('1.jpg'), self.load_image('2.jpg'), self.load_image('3.png')]
         self.background_image = pygame.transform.scale(self.load_image('bg.png').convert(), (800, 800))
+        self.button = self.load_image('button.png').convert()
         pygame.mixer.music.load(path.join(music_folder, BG_MUSIC))
         self.effects_sounds = {}
         self.balls = {}

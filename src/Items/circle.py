@@ -90,10 +90,10 @@ class Circle(object):
 
     def render(self):
         """Render the circle, return this"""
-        self.screen.blit(self.main.hole, (self.x - self.radius - 10, self.y - self.radius - 10))
+        self.screen.blit(pygame.transform.scale(self.main.hole, (self.radius * 2 + self.radius//2, self.radius * 2 + self.radius//2)), (self.x - self.radius, self.y - self.radius))
         if not self.colorStr == 'grey' and not self.color == DARKGREY:
-            self.screen.blit(self.main.balls[self.colorStr], (self.x - self.radius - 15, self.y - self.radius - 15))
+            self.screen.blit(pygame.transform.scale(self.main.balls[self.colorStr], (self.radius * 2 + self.radius//2, self.radius * 2 + self.radius//2)), (self.x - self.radius, self.y - self.radius))
         elif self.color == DARKGREY:
-            self.screen.blit(self.main.balls['darkgrey'], (self.x - self.radius - 15, self.y - self.radius - 15))
+            self.screen.blit(pygame.transform.scale(self.main.balls['darkgrey'], (self.radius * 2 + self.radius//2, self.radius * 2 + self.radius//2)), (self.x - self.radius, self.y - self.radius))
         #pygame.draw.circle(self.screen, self.color, (self.x, self.y), self.radius)
         return self

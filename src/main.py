@@ -47,14 +47,14 @@ class Main(object):
         sound_folder = path.join(game_folder, 'sound')
         music_folder = path.join(game_folder, 'music')
         self.board = pygame.transform.scale(self.load_image('board.png').convert(), (800, 800))
-        self.hole = pygame.transform.scale(self.load_image('hole.png').convert_alpha(), (60, 60))
+        self.hole = self.load_image('hole.png').convert_alpha()
         #self.anim = [self.load_image('1.jpg'), self.load_image('2.jpg'), self.load_image('3.png')]
         self.background_image = pygame.transform.scale(self.load_image('bg.png').convert(), (800, 800))
         pygame.mixer.music.load(path.join(music_folder, BG_MUSIC))
         self.effects_sounds = {}
         self.balls = {}
         for type in BALL:
-            self.balls[type] = pygame.transform.scale(self.load_image(BALL[type]).convert_alpha(), (70, 70))
+            self.balls[type] = self.load_image(BALL[type]).convert_alpha()
         for type in EFFECTS_SOUNDS:
             self.effects_sounds[type] = pygame.mixer.Sound(path.join(sound_folder, EFFECTS_SOUNDS[type]))
 

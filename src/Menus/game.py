@@ -8,21 +8,23 @@ from Items.circle import Circle
 class Game(object):
     """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""
 
-    def __init__(self, main, screen, column = 4, row = 6, radius = 30, color = 5, offeset = 0):
+    def __init__(self, main, screen, column = 4, row = 6, radius = 20, colors = 5, offeset = 0):
         """dans ce constructeur on y défini les paramètres du niveau comme le nombre de lignes, colonnes et le nombre de couleur. On a mis des valeurs par défault pour
         les games de base. Les attributs de la lignes 21 a 25 sont des tableaux comprenant respectivement les éléments du game. currentRow est la l'essai auquel on est
         actuellement donc 1 par default."""
         self.main = main
         self.screen = screen
         self.column, self.row = column, row
-        self.color = color
-        self.colors = COLORS[:color]
+        self.color = colors
+        self.colors = COLORS[:colors]
         self.radius = radius
         self.offeset = offeset
 
         self.font = pygame.font.SysFont('comicsans', 20)
         self.secret = []
         self.circles = []
+        self.circles_empty_secret = []
+        self.circles_empty_secret_2 = []
         self.buttons = []
         self.texts = []
         self.currentRow = 1
@@ -42,6 +44,20 @@ class Game(object):
             self.circles.append([])
             for i in range(self.column):
                 self.createCircle(i, j)
+        marginX = int((HEIGHT - 30 - (self.radius * (self.column))) / (self.column + 2))
+        marginY = int((WIDTH - 40 - (self.radius * (self.row + 1))) / (self.row + 2))
+        for n in range(1, self.row + 1):
+            x = marginX + self.column * (marginX + self.radius)
+            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius) - 10).size(10))
+            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 25).vertical(marginY + n * (marginY + self.radius) - 10).size(10))
+            if self.column >= 5:
+                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 50).vertical(marginY + n * (marginY + self.radius) - 10).size(10))
+            if self.column >= 7:
+                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 75).vertical(marginY + n * (marginY + self.radius) - 10).size(10))
+            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius) + 15).size(10))
+            self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 25).vertical(marginY + n * (marginY + self.radius) + 15).size(10))
+            if self.column >= 6:
+                self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 50).vertical(marginY + n * (marginY + self.radius) + 15).size(10))
         self.buttons.append(['Enter', Button(self.screen).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60)])
         self.buttons.append(['Menu', Button(self.screen).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60)])
 
@@ -68,15 +84,12 @@ class Game(object):
             circle.fill(DARKGREY)
         self.circles[j].append(circle)
 
-    def createHints(self, text1, text2):
+    def createHints(self, place, present):
         """Apres chaque essai les indices Placment et Présent sont placés a coté de chaque row apres avoir tenté un essai"""
-        text1 = self.font.render('Placement : ' + text1, 1, WHITE)
-        text2 = self.font.render('Present   : ' + text2, 1, WHITE)
-        marginX = int((HEIGHT - 30 - (self.radius * (self.column))) / (self.column + 2))
-        marginY = int((WIDTH - 40 - (self.radius * (self.row + 1))) / (self.row + 2))
-        x = marginX + self.column * (marginX + self.radius)
-        self.texts.append([text1, (x, marginY + self.currentRow * (marginY + self.radius) - text1.get_height())])
-        self.texts.append([text2, (x, marginY + self.currentRow * (marginY + self.radius) + 12 - text2.get_height())])
+        for n in range(0, place):
+            self.circles_empty_secret[n + 4 * (self.currentRow - 1)].fill('dark')
+        for n in range(place, place + present):
+            self.circles_empty_secret[n + 4 * (self.currentRow - 1)].fill('white')
 
     def draw(self):
         """cette méthode est la meme que les méthodes draw() des menus est elle lancée dans la méthode run du main"""
@@ -86,8 +99,8 @@ class Game(object):
                 circle.render()
         for button in self.buttons:
             button[1].render()
-        for text in self.texts:
-            self.screen.blit(text[0], text[1])
+        for circle in self.circles_empty_secret:
+            circle.render()
 
     def clickCircle(self, pos, event):
         """cette méthode sert a détecter si la souris a cliqué dans un cercle, cela est fait grace a la boucle for qui check chaque circle grace a la formule
@@ -97,7 +110,7 @@ class Game(object):
             for circle in self.circles[0]:
                 sqx = (pos[0] - circle.horizontal())**2
                 sqy = (pos[1] - circle.vertical())**2
-                if math.sqrt(sqx + sqy) < self.radius:
+                if math.sqrt(sqx + sqy) < self.radius + 10:
                     circle.switch("desc" if right else "asc")
         else:
             if self.currentRow <= self.row:
@@ -105,7 +118,7 @@ class Game(object):
                 for circle in self.circles[self.currentRow]:
                     sqx = (pos[0] - circle.horizontal())**2
                     sqy = (pos[1] - circle.vertical())**2
-                    if math.sqrt(sqx + sqy) < self.radius:
+                    if math.sqrt(sqx + sqy) < self.radius + 10:
                         circle.switch("desc" if right else "asc")
 
     def clickButton(self, pos, event):
@@ -155,7 +168,7 @@ class Game(object):
                     secret[1] = 'place'
                     circle.done(True)
                     present += 1
-        self.createHints(str(place), str(present))
+        self.createHints(place, present)
         self.currentRow += 1
         if (place == self.column): #win
             self.main.getTask('difficultyMenu')[2].difficultyLvl += 1

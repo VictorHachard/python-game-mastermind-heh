@@ -11,7 +11,7 @@ ORANGE = (255, 165, 0)
 BLUE = (0, 0, 255)
 CYAN = (0, 255, 255)
 PURPLE = (128, 0, 128)
-COLORS = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN], ['purple', PURPLE]]
+COLORS = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN], ['purple', PURPLE], ['dark', BLACK], ['white', WHITE]]
 
 BALL = {'red': 'red.png',
         'green': 'green.png',
@@ -21,6 +21,7 @@ BALL = {'red': 'red.png',
         'purple': 'purple.png',
         'cyan': 'cyan.png',
         'dark': 'dark.png',
+        'white': 'white.png',
         'grey': 'grey.png',
         'darkgrey': 'darkgrey.png'}
 

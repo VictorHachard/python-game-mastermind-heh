@@ -33,6 +33,7 @@ class Main(object):
         self.tasks.append(['gameModeMenu', False, GameModeMenu(self, self.screen)])
         self.tasks.append(['ruleMenu', False, RuleMenu(self, self.screen)])
         self.tasks.append(['game', False, None])
+        pygame.mixer.music.play(loops=-1)
 
     def load_data(self):
         """charge le path de tout les assets"""
@@ -44,6 +45,10 @@ class Main(object):
         self.board = pygame.transform.scale(self.load_image('board.png'), (800, 800))
         #self.anim = [self.load_image('1.jpg'), self.load_image('2.jpg'), self.load_image('3.png')]
         self.background_image = pygame.transform.scale(self.load_image('bg.jpg'), (800, 800))
+        pygame.mixer.music.load(path.join(music_folder, BG_MUSIC))
+        self.effects_sounds = {}
+        for type in EFFECTS_SOUNDS:
+            self.effects_sounds[type] = pygame.mixer.Sound(path.join(sound_folder, EFFECTS_SOUNDS[type]))
 
     def load_image(self, name):
         return pygame.image.load(path.join(self.image_folder, name)).convert()
@@ -53,11 +58,10 @@ class Main(object):
             if task[0] == id:
                 return task
 
-
     def run(self):
         """Pour gérer les events on a réalisé une gameLoop (while) dans laquelle on charge la task actuelle grace aux event réalisés dans celle-ci,
          au début le mainMenu est chargé en task par défault. La méthode run sert donc a appeller les méthodes update et draw de la task actuelle en pour chaque event
-         de cette task grace a la variable de classe tasks (ligne 58,59). """
+         de cette task grace a la variable de classe tasks (ligne 58,59)."""
         self.running = True
         while self.running:
             self.dt = self.clock.tick(FPS) / 1000.0

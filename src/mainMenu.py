@@ -16,7 +16,7 @@ class MainMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.mainMenu = Menu(self.screen, 6).addText('Mastermind', 60).addButton('Play', 'p').addButton('Game Mode', 'o')
+        self.mainMenu = Menu(self.screen, self.main, 6).addText('Mastermind', 60).addButton('Play', 'p').addButton('Game Mode', 'o')
         self.mainMenu.addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""

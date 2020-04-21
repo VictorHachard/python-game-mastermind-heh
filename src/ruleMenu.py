@@ -16,7 +16,7 @@ class RuleMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.ruleMenu = Menu(self.screen, 6).addText('Rules', 60).addButton('Menu', 'm')
+        self.ruleMenu = Menu(self.screen, self.main, 6).addText('Rules', 60).addButton('Menu', 'm')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 

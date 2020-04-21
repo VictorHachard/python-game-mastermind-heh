@@ -36,7 +36,7 @@ class ScoreMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.scoreMenu = Menu(self.screen, 6).addText('High score', 60).addText(str(self.score), 40).addButton('Menu', 'm')
+        self.scoreMenu = Menu(self.screen, self.main, 6).addText('High score', 60).addText(str(self.score), 40).addButton('Menu', 'm')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 

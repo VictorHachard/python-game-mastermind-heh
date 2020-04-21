@@ -7,9 +7,10 @@ from text import Text
 class Menu(object):
     """docstring for Menu."""
 
-    def __init__(self, screen, items, offset = 0):
+    def __init__(self, screen, main, items, offset = 0):
         self.items = []
         self.item = 0
+        self.main = main
         self.screen = screen
         self.height = HEIGHT - (items - offset) * 20 - 40
         self.itemsPos = [(self.height / items * x) for x in range(items)]
@@ -21,6 +22,7 @@ class Menu(object):
             if event.button == 1:
                 for button in self.items:
                     if button[0] == 'button' and button[1].isMouseIn(pygame.mouse.get_pos()):
+                        self.main.effects_sounds['click_button'].play()
                         return button[2]
 
     def addButton(self, text, id, color = GREY):

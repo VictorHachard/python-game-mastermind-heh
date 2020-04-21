@@ -18,3 +18,8 @@ WIDTH = 800
 HEIGHT = 800
 FPS = 60
 TITLE = "Mastermind"
+
+# Sounds
+BG_MUSIC = 'espionage.ogg'
+EFFECTS_SOUNDS = {'click_button': 'health_pack.wav',
+                  'victory': 'victory.wav'}

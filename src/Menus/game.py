@@ -212,7 +212,7 @@ class Game(object):
         self.currentRow += 1
         if self.vsPlayer2:
             if self.playerTurn: #p1
-                self.player1Score += place + present
+                self.player1Score += place * 2 + present
             else:
                 self.player2Score += place + present
             print(str(self.player1Score) + ' ' + str(self.player2Score))
@@ -222,7 +222,7 @@ class Game(object):
             self.win = True
             self.buttons.pop(0)
             self.showSecret()
-        if (self.currentRow >= self.row + 1): #lose
+        elif (self.currentRow >= self.row + 1): #lose
             self.buttons.pop(0)
             self.showSecret()
 

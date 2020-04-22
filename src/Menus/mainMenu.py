@@ -15,9 +15,12 @@ class MainMenu(object):
         self.main = main
         self.screen = screen
         self.new()
+        #handles the falling pawn anim
         self.isPawnFalling = False
         self.fallingPawnX = 0
         self.fallingPawnY = -80
+        self.listOfFallingPawns = [self.main.fallingRedPawn, self.main.fallingWhitePawn]
+        self.currentFallingPawn = self.main.fallingRedPawn
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
@@ -49,8 +52,16 @@ class MainMenu(object):
         elif res == 'r':
             self.main.change = 'ruleMenu'
 
+    """les 3 prochaines méthodes gèrent la création et animation de la bille qui tombe dans le menu"""
+
     def handleFallingPawnSpawn(self):
+        """cette méthode crée une bille a positionner si il y en a pas encore (il alterne entre rouge et blanc) et la positionne, si il y a déja une bille
+        il appelle la méthode fallingPawnUpdatePos()"""
         if self.isPawnFalling == False:
+            if self.currentFallingPawn == self.listOfFallingPawns[0]:
+                self.currentFallingPawn = self.listOfFallingPawns[1]
+            else :
+                self.currentFallingPawn = self.listOfFallingPawns[0]
             self.fallingPawnX= random.randint(1, WIDTH-81)
             self.fallingPawnY= -80
             self.isPawnFalling= True
@@ -59,12 +70,15 @@ class MainMenu(object):
             self.fallingPawnUpdatePos()
 
     def fallingPawnUpdatePos(self):
-        if(self.fallingPawnY< HEIGHT-80):
-            self.fallingPawnY= self.fallingPawnY+2
+        """cette méthode rajoute 2 de coord y a la pos de la bille (ca donne un illusion d'animation) . Si la bille n'est plus du tout sur l'écran alors on set
+        isPawnFalling a false"""
+        if self.fallingPawnY < HEIGHT+80:
+            self.fallingPawnY= self.fallingPawnY+3
         else:
-            self.isPawnFalling= False
+            self.isPawnFalling = False
 
     def drawFallingPawn(self):
+        """c'est cette méthode qui update sur l'écran la position de bille avec les paramètres fallingPawnX et Y"""
         self.handleFallingPawnSpawn()
-        self.screen.blit(self.main.fallingRedPawn, (self.fallingPawnX, self.fallingPawnY))
+        self.screen.blit(self.currentFallingPawn, (self.fallingPawnX, self.fallingPawnY))
 

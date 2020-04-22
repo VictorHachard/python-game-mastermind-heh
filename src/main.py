@@ -63,6 +63,7 @@ class Main(object):
             self.suspense[type] = path.join(music_folder, SUSPENSE_MUSIC[type])
         #picking the 2 red and white pawns to make the falling anim
         self.fallingRedPawn = pygame.transform.scale(self.balls['red'],(80,80))
+        self.fallingWhitePawn = pygame.transform.scale(self.balls['white'],(80,80))
 
     def load_image(self, name):
         return pygame.image.load(path.join(self.image_folder, name))

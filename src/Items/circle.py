@@ -21,7 +21,6 @@ class Circle(object):
         if order == 'desc':
             if self.colorStr == 'grey':
                 self.fill(self.colors[len(self.colors) - 1][0]).render()
-                print(self.colors[0][0])
             else:
                 for color in self.colors:
                     if self.colorStr == color[0]:

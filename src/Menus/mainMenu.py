@@ -73,7 +73,7 @@ class MainMenu(object):
         """cette méthode rajoute 2 de coord y a la pos de la bille (ca donne un illusion d'animation) . Si la bille n'est plus du tout sur l'écran alors on set
         isPawnFalling a false"""
         if self.fallingPawnY < HEIGHT+80:
-            self.fallingPawnY= self.fallingPawnY+3
+            self.fallingPawnY = self.fallingPawnY+4
         else:
             self.isPawnFalling = False
 

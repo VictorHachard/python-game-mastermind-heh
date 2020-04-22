@@ -18,7 +18,7 @@ class ForeGroundImage(object):
             self.x = point[0]
         self.y = point[1]
         if self.x == -1:
-            self.x = WIDTH/2 - self.image.get_width()/2
+            self.x = WIDTH/2 - self.image .get_width()/2
         return self
 
     def render(self):

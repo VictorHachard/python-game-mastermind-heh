@@ -30,7 +30,8 @@ class Button(object):
         """Render this object, return this"""
         if self.menu:
             self.rect = pygame.draw.rect(self.screen, self.colorRect, (WIDTH // 2 - 316 // 2, self.y - 14, 316, 73), 0)
-            self.screen.blit(self.main.button, (WIDTH // 2 - 316 // 2, self.y - 14))
+            btn = self.main.button_b if self.main.getTask('settingsMenu')[2].biere else self.main.button
+            self.screen.blit(btn, (WIDTH // 2 - 316 // 2, self.y - 14))
         else:
             self.rect = pygame.draw.rect(self.screen, self.colorRect, (self.x, self.y, self.text.get_width(), self.text.get_height()), 0)
         self.screen.blit(self.text, (self.x, self.y))

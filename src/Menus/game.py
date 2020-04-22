@@ -166,6 +166,7 @@ class Game(object):
                     self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
                     self.main.getTask('difficultyMenu')[2].new()
                     self.main.getTask('scoreMenu')[2].addScore()
+                    self.main.getTask('winMenu')[2].new()
                     self.main.change = 'winMenu'
                 else:
                     self.main.change = 'mainMenu'

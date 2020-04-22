@@ -53,22 +53,25 @@ class Main(object):
         self.background_image = pygame.transform.scale(self.load_image('bg.png').convert(), (800, 800))
         self.background_image_b = pygame.transform.scale(self.load_image('bg_b.jpg').convert(), (800, 800))
         self.button = self.load_image('button.png').convert()
+        self.button_b = self.load_image('button_b.png').convert()
         self.effects_sounds = {}
         self.suspense = {}
         self.balls = {}
         self.balls_b = {}
+        self.falling = []
+        self.falling_b = []
         for type in BALL:
             self.balls[type] = self.load_image(BALL[type]).convert_alpha()
+            self.falling.append(pygame.transform.scale(self.balls[type], (80,80)))
         for type in BALL_B:
             self.balls_b[type] = self.load_image(BALL_B[type]).convert_alpha()
+            self.falling_b.append(pygame.transform.scale(self.balls_b[type], (80,80)))
         for type in EFFECTS_SOUNDS:
             self.effects_sounds[type] = pygame.mixer.Sound(path.join(sound_folder, EFFECTS_SOUNDS[type]))
         for type in SUSPENSE_MUSIC:
             self.suspense[type] = path.join(music_folder, SUSPENSE_MUSIC[type])
         pygame.mixer.music.load(self.suspense["1"])
         #picking the 2 red and white pawns to make the falling anim
-        self.fallingRedPawn = pygame.transform.scale(self.balls['red'],(80,80))
-        self.fallingWhitePawn = pygame.transform.scale(self.balls['white'],(80,80))
 
     def load_image(self, name):
         return pygame.image.load(path.join(self.image_folder, name))

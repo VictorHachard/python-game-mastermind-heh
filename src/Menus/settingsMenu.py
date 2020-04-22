@@ -22,8 +22,12 @@ class SettingsMenu(object):
         self.settingsMenu = Menu(self.screen, self.main, 6).addText('Settings', 60)
         if self.biere:
             self.settingsMenu.addButton('Ball: Biere', 'v')
+            if self.main.getTask('mainMenu')[2] != None:
+                 self.main.getTask('mainMenu')[2].new()
         else:
             self.settingsMenu.addButton('Ball: Classic', 'v')
+            if self.main.getTask('mainMenu') != None:
+                 self.main.getTask('mainMenu')[2].new()
         self.settingsMenu.addButton('Menu', 'm')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""

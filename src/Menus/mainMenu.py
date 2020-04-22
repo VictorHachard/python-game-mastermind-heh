@@ -24,8 +24,8 @@ class MainMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.mainMenu = Menu(self.screen, self.main, 6).addText('Mastermind', 60).addButton('Play', 'p').addButton('Game Mode', 'o')
-        self.mainMenu.addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')
+        self.menu = Menu(self.screen, self.main, 6).addText('Mastermind', 60).addButton('Play', 'p').addButton('Game Mode', 'o')
+        self.menu.addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 
@@ -36,11 +36,11 @@ class MainMenu(object):
         """cette méthode permet de placer les element a render"""
         self.screen.blit(self.main.background_image, (0, 0))
         self.drawFallingPawn()
-        self.mainMenu.render()
+        self.menu.render()
 
     def events(self, event):
         """cette méthode gere les input du clavier et les traite en conséquence"""
-        res = self.mainMenu.update(event)
+        res = self.menu.update(event)
         if res == 'q':
             self.main.running = False
         elif res == 'p':
@@ -57,7 +57,7 @@ class MainMenu(object):
     def handleFallingPawnSpawn(self):
         """cette méthode crée une bille a positionner si il y en a pas encore (il alterne entre rouge et blanc) et la positionne, si il y a déja une bille
         il appelle la méthode fallingPawnUpdatePos()"""
-        if self.isPawnFalling == False:
+        if not self.isPawnFalling:
             if self.currentFallingPawn == self.listOfFallingPawns[0]:
                 self.currentFallingPawn = self.listOfFallingPawns[1]
             else :

@@ -53,11 +53,14 @@ class Main(object):
         self.button = self.load_image('button.png').convert()
         pygame.mixer.music.load(path.join(music_folder, BG_MUSIC))
         self.effects_sounds = {}
+        self.suspense = {}
         self.balls = {}
         for type in BALL:
             self.balls[type] = self.load_image(BALL[type]).convert_alpha()
         for type in EFFECTS_SOUNDS:
             self.effects_sounds[type] = pygame.mixer.Sound(path.join(sound_folder, EFFECTS_SOUNDS[type]))
+        for type in SUSPENSE_MUSIC:
+            self.suspense[type] = path.join(music_folder, SUSPENSE_MUSIC[type])
         #picking the 2 red and white pawns to make the falling anim
         self.fallingRedPawn = pygame.transform.scale(self.balls['red'],(80,80))
 

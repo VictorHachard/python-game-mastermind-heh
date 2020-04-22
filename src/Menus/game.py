@@ -60,6 +60,12 @@ class Game(object):
                 self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 50).vertical(marginY + n * (marginY + self.radius) + 15).size(12))
         self.buttons.append(['Enter', Button(self.screen, self.main).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60, menu = False)])
         self.buttons.append(['Menu', Button(self.screen, self.main).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60, menu = False)])
+        self.play()
+
+    def play(self):
+        if self.currentRow <= 5:
+            pygame.mixer.music.load(self.main.suspense[str(self.currentRow)])
+            pygame.mixer.music.play(loops=-1)
 
     def update(self):
         pass
@@ -170,6 +176,7 @@ class Game(object):
                     present += 1
         self.createHints(place, present)
         self.currentRow += 1
+        self.play()
         if (place == self.column): #win
             self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
             self.main.getTask('difficultyMenu')[2].new()

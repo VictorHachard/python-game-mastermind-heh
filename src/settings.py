@@ -35,3 +35,8 @@ TITLE = "Mastermind"
 BG_MUSIC = 'bg.mp3'
 EFFECTS_SOUNDS = {'click_button': 'health_pack.wav',
                   'victory': 'victory.wav'}
+SUSPENSE_MUSIC = {'1': 'suspense1.mp3',
+                    '2': 'suspense2.mp3',
+                    '3': 'suspense3.mp3',
+                    '4': 'suspense4.mp3',
+                    '5': 'suspense5.mp3'}

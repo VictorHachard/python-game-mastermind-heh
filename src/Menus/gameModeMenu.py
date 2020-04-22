@@ -15,13 +15,18 @@ class GameModeMenu(object):
         self.screen = screen
         self.colorMode = False
         self.vsPlayer = False
+        self.vsPlayer2 = False
         self.new()
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
         self.gameModeMenu = Menu(self.screen, self.main, 6).addText('Game mode', 60)
+        if self.vsPlayer2:
+            self.gameModeMenu.addButton('2 player', 'v2')
+        else:
+            self.gameModeMenu.addButton('1 players', 'v2')
         if self.vsPlayer:
-            self.gameModeMenu.addButton('VS: 2 players', 'v').addText('', 0)
+            self.gameModeMenu.addButton('VS: Player', 'v').addText('', 0)
         else:
             self.gameModeMenu.addButton('VS: IA', 'v')
             if self.colorMode:
@@ -51,4 +56,7 @@ class GameModeMenu(object):
             self.new()
         elif res == 'v':
             self.vsPlayer = not self.vsPlayer
+            self.new()
+        elif res == 'v2':
+            self.vsPlayer2 = not self.vsPlayer2
             self.new()

@@ -40,8 +40,8 @@ class Game(object):
     def new(self):
         """new est appellé dans le constructeur, dans cette méthode on génére la combinaison secrete en fonction de si le mode multiColors est activé. Ensuite les
         lignes 40 a 43 créent les cercles et les placent dans la variable de classe circles. Les 2 derniere lignes ajoutent les 2 bouttons au game"""
-        self.vsPlayer = False # self.main.getTask('gameModeMenu')[2].vsPlayer #To Move
-        self.vsPlayer2 = self.main.getTask('gameModeMenu')[2].vsPlayer
+        self.vsPlayer = self.main.getTask('gameModeMenu')[2].vsPlayer #To Move
+        self.vsPlayer2 = self.main.getTask('gameModeMenu')[2].vsPlayer2
         if not self.vsPlayer:
             self.colorMode = self.main.getTask('gameModeMenu')[2].colorMode #To Move
             secrets = [random.randint(0, len(self.colors) - 1) for i in range(self.column)] if self.colorMode else random.sample(range(0, len(self.colors)), self.column)

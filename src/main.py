@@ -28,6 +28,7 @@ class Main(object):
         self.load_data()
         self.change = ''
         self.tasks = []
+        self.tasks.append(['settingsMenu', False, SettingsMenu(self, self.screen)])
         self.tasks.append(['mainMenu', True, MainMenu(self, self.screen)])
         self.tasks.append(['difficultyMenu', False, DifficultyMenu(self, self.screen)])
         self.tasks.append(['winMenu', False, WinMenu(self, self.screen)])
@@ -35,7 +36,6 @@ class Main(object):
         self.tasks.append(['gameModeMenu', False, GameModeMenu(self, self.screen)])
         self.tasks.append(['ruleMenu', False, RuleMenu(self, self.screen)])
         self.tasks.append(['loseMenu', False, LoseMenu(self, self.screen)])
-        self.tasks.append(['settingsMenu', False, SettingsMenu(self, self.screen)])
         self.tasks.append(['game', False, None])
         pygame.mixer.music.play(loops=-1)
 
@@ -48,8 +48,10 @@ class Main(object):
         music_folder = path.join(game_folder, 'music')
         self.board = pygame.transform.scale(self.load_image('board.png').convert(), (800, 800))
         self.hole = self.load_image('hole.png').convert_alpha()
+        self.hole_b = self.load_image('hole_b.png').convert_alpha()
         #self.anim = [self.load_image('1.jpg'), self.load_image('2.jpg'), self.load_image('3.png')]
         self.background_image = pygame.transform.scale(self.load_image('bg.png').convert(), (800, 800))
+        self.background_image_b = pygame.transform.scale(self.load_image('bg_b.jpg').convert(), (800, 800))
         self.button = self.load_image('button.png').convert()
         self.effects_sounds = {}
         self.suspense = {}

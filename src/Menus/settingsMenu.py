@@ -33,7 +33,8 @@ class SettingsMenu(object):
 
     def draw(self):
         """cette méthode permet de placer les element a render"""
-        self.screen.blit(self.main.background_image, (0, 0))
+        bg = self.main.background_image_b if self.main.getTask('settingsMenu')[2].biere else self.main.background_image
+        self.screen.blit(bg, (0, 0))
         self.settingsMenu.render()
 
     def events(self, event):

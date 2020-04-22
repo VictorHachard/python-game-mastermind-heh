@@ -20,7 +20,7 @@ class Game(object):
         self.radius = radius
         self.offeset = offeset
         self.win = False
-        self.vsPlayer2 = True
+        self.vsPlayer2 = False
         self.playerTurn = True #1debase
         self.player1Score = 0
         self.player2Score = 0
@@ -39,7 +39,8 @@ class Game(object):
     def new(self):
         """new est appellé dans le constructeur, dans cette méthode on génére la combinaison secrete en fonction de si le mode multiColors est activé. Ensuite les
         lignes 40 a 43 créent les cercles et les placent dans la variable de classe circles. Les 2 derniere lignes ajoutent les 2 bouttons au game"""
-        self.vsPlayer = self.main.getTask('gameModeMenu')[2].vsPlayer #To Move
+        self.vsPlayer = False # self.main.getTask('gameModeMenu')[2].vsPlayer #To Move
+        self.vsPlayer2 = self.main.getTask('gameModeMenu')[2].vsPlayer
         if not self.vsPlayer:
             self.colorMode = self.main.getTask('gameModeMenu')[2].colorMode #To Move
             secrets = [random.randint(0, len(self.colors) - 1) for i in range(self.column)] if self.colorMode else random.sample(range(0, len(self.colors)), self.column)
@@ -70,9 +71,9 @@ class Game(object):
             for n in range(1, self.row + 1):
                 x = marginX + self.column * (marginX + self.radius)
                 if switch:
-                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("red"))
+                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("p1"))
                 else:
-                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("blue"))
+                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("p2"))
                 switch = not switch
         self.buttons.append(['Enter', Button(self.screen, self.main).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60, menu = False)])
         self.buttons.append(['Menu', Button(self.screen, self.main).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60, menu = False)])
@@ -119,7 +120,8 @@ class Game(object):
 
     def draw(self):
         """cette méthode est la meme que les méthodes draw() des menus est elle lancée dans la méthode run du main"""
-        self.screen.blit(self.main.board, (0, 0))
+        bg = self.main.background_image_b if self.main.getTask('settingsMenu')[2].biere else self.main.background_image
+        self.screen.blit(bg, (0, 0))
         for j in range(self.row + 1):
             for circle in self.circles[j]:
                 circle.render()

@@ -6,7 +6,6 @@ from Items.text import Text
 from Menus.menu import Menu
 from Menus.game import Game
 
-
 class MainMenu(object):
     """docstring for MainMenu. Cette classe est la classe responsable de la creation et personnalisatioon du mainMenu"""
 
@@ -24,8 +23,9 @@ class MainMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.menu = Menu(self.screen, self.main, 7).addText('Mastermind', 60).addButton('Play', 'p').addButton('Game Mode', 'o').addButton('Settings', 's')
-        self.menu.addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')
+        self.menu = Menu(self.screen, self.main, 7)
+        self.menu.addText('MasterBeer', 60)
+        self.menu.addButton('Play', 'p').addButton('Game Mode', 'o').addButton('Settings', 's').addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 
@@ -34,7 +34,8 @@ class MainMenu(object):
 
     def draw(self):
         """cette méthode permet de placer les element a render"""
-        self.screen.blit(self.main.background_image, (0, 0))
+        bg = self.main.background_image_b if self.main.getTask('settingsMenu')[2].biere else self.main.background_image
+        self.screen.blit(bg, (0, 0))
         self.drawFallingPawn()
         self.menu.render()
 

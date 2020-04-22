@@ -92,8 +92,9 @@ class Circle(object):
     def render(self):
         """Render the circle, return this"""
         balls = self.main.balls_b if self.main.getTask('settingsMenu')[2].biere else self.main.balls
+        hole = self.main.hole_b if self.main.getTask('settingsMenu')[2].biere else self.main.hole
         n = self.radius * 2 + self.radius//2
-        self.screen.blit(pygame.transform.scale(self.main.hole, (n, n)), (self.x - self.radius, self.y - self.radius))
+        self.screen.blit(pygame.transform.scale(hole, (n, n)), (self.x - self.radius, self.y - self.radius))
         if not self.colorStr == 'grey' and not self.color == DARKGREY:
             self.screen.blit(pygame.transform.scale(balls[self.colorStr], (n, n)), (self.x - self.radius, self.y - self.radius))
         elif self.color == DARKGREY:

@@ -11,7 +11,9 @@ ORANGE = (255, 165, 0)
 BLUE = (0, 0, 255)
 CYAN = (0, 255, 255)
 PURPLE = (128, 0, 128)
-COLORS = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN], ['purple', PURPLE], ['dark', BLACK], ['white', WHITE]]
+P1 = 0
+P2 = 0
+COLORS = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN], ['purple', PURPLE], ['dark', BLACK], ['white', WHITE], ['p1', P1], ['p1', P1]]
 
 BALL = {'red': 'red.png',
         'green': 'green.png',
@@ -23,21 +25,25 @@ BALL = {'red': 'red.png',
         'dark': 'dark.png',
         'white': 'white.png',
         'grey': 'grey.png',
-        'darkgrey': 'darkgrey.png'}
+        'darkgrey': 'darkgrey.png',
+        'p1': 'p1.png',
+        'p2': 'p2.png'}
 
 BALL_B = {'red': 'red_b.png',
-        'green': 'sd.png',
-        'orange': 'sd.png',
-        'blue': 'sd.png',
-        'yellow': 'sd.png',
-        'purple': 'sd.png',
-        'cyan': 'sd.png',
-        'dark': 'sd.png',
-        'white': 'sd.png',
-        'grey': 'sd.png',
-        'darkgrey': 'sd.png'}
+        'green': 'green_b.png',
+        'orange': 'orange_b.png',
+        'blue': 'blue_b.png',
+        'yellow': 'yellow_b.png',
+        'purple': 'purple_b.png',
+        'cyan': 'cyan_b.png',
+        'dark': 'dark_b.png',
+        'white': 'white_b.png',
+        'grey': 'grey_b.png',
+        'darkgrey': 'darkgrey_b.png',
+        'p1': 'p1.png',
+        'p2': 'p2.png'}
 
-RULES_IMAGES = ['ruleT.png', 'rulesImage1.png']
+RULES_IMAGES = ['ruleT.png', 'rulesImage1.png', 'title.png']
 
 # game settings
 WIDTH = 800

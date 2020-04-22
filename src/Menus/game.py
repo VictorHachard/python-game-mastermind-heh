@@ -8,7 +8,7 @@ from Items.circle import Circle
 class Game(object):
     """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""
 
-    def __init__(self, main, screen, column = 4, row = 6, radius = 24, colors = 5, offeset = 0):
+    def __init__(self, main = None, screen = None, column = 4, row = 6, radius = 24, colors = 5, offeset = 0):
         """dans ce constructeur on y défini les paramètres du niveau comme le nombre de lignes, colonnes et le nombre de couleur. On a mis des valeurs par défault pour
         les games de base. Les attributs de la lignes 21 a 25 sont des tableaux comprenant respectivement les éléments du game. currentRow est la l'essai auquel on est
         actuellement donc 1 par default."""
@@ -19,6 +19,11 @@ class Game(object):
         self.colors = COLORS[:colors]
         self.radius = radius
         self.offeset = offeset
+        self.win = False
+        self.vsPlayer2 = True
+        self.playerTurn = True #1debase
+        self.player1Score = 0
+        self.player2Score = 0
 
         self.font = pygame.font.SysFont('comicsans', 20)
         self.secret = []
@@ -27,6 +32,7 @@ class Game(object):
         self.circles_empty_secret_2 = []
         self.buttons = []
         self.texts = []
+        self.players = []
         self.currentRow = 1
         self.new()
 
@@ -58,9 +64,20 @@ class Game(object):
             self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 25).vertical(marginY + n * (marginY + self.radius) + 15).size(12))
             if self.column >= 6:
                 self.circles_empty_secret.append(Circle(self.main, self.screen, self.colors).horizontal(x + 50).vertical(marginY + n * (marginY + self.radius) + 15).size(12))
+        if self.vsPlayer2:
+            marginX = int((WIDTH - (self.radius * (self.column + 1))) / (self.column + 3))
+            switch = True
+            for n in range(1, self.row + 1):
+                x = marginX + self.column * (marginX + self.radius)
+                if switch:
+                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("red"))
+                else:
+                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("blue"))
+                switch = not switch
         self.buttons.append(['Enter', Button(self.screen, self.main).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60, menu = False)])
         self.buttons.append(['Menu', Button(self.screen, self.main).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60, menu = False)])
-        self.play()
+        pygame.mixer.music.load(self.main.suspense["1"])
+        pygame.mixer.music.play(loops=-1)
 
     def play(self):
         if self.currentRow <= 5:
@@ -81,7 +98,10 @@ class Game(object):
 
     def createCircle(self, i, j):
         """cette méthode est appellée dans la méthode new et sert a créer un cerle en gris et le placer dans le game"""
-        marginX = int((WIDTH - (self.radius * self.column)) / (self.column + 2))
+        if self.vsPlayer2:
+            marginX = int((WIDTH - (self.radius * self.column + 1)) / (self.column + 3))
+        else:
+            marginX = int((WIDTH - (self.radius * self.column)) / (self.column + 2))
         marginY = int((HEIGHT - 40 - (self.radius * (self.row + 1))) / (self.row + 2))
         circle = Circle(self.main, self.screen, self.colors).horizontal(marginX + i * (marginX + self.radius)).vertical(marginY + j * (marginY + self.radius)).size(self.radius)
         if j == 0 and not self.vsPlayer:
@@ -107,6 +127,9 @@ class Game(object):
             button[1].render()
         for circle in self.circles_empty_secret:
             circle.render()
+        if self.vsPlayer2:
+            for circle in self.players:
+                circle.render()
 
     def clickCircle(self, pos, event):
         """cette méthode sert a détecter si la souris a cliqué dans un cercle, cela est fait grace a la boucle for qui check chaque circle grace a la formule
@@ -133,8 +156,15 @@ class Game(object):
          est appellée si le player 1 n'était pas en train de générer le secret"""
         for button in self.buttons:
             if button[0] == 'Menu' and button[1].isMouseIn(pos):
+                pygame.mixer.music.load(self.main.suspense["1"])
+                pygame.mixer.music.play(loops=-1)
                 if (self.currentRow >= self.row + 1):
                     self.main.change = 'loseMenu'
+                elif self.win:
+                    self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
+                    self.main.getTask('difficultyMenu')[2].new()
+                    self.main.getTask('scoreMenu')[2].addScore()
+                    self.main.change = 'winMenu'
                 else:
                     self.main.change = 'mainMenu'
             if button[0] == 'Enter' and button[1].isMouseIn(pos) and self.currentRow <= self.row:
@@ -176,12 +206,18 @@ class Game(object):
                     present += 1
         self.createHints(place, present)
         self.currentRow += 1
+        if self.vsPlayer2:
+            if self.playerTurn: #p1
+                self.player1Score += place + present
+            else:
+                self.player2Score += place + present
+            print(str(self.player1Score) + ' ' + str(self.player2Score))
+        self.playerTurn = not self.playerTurn
         self.play()
         if (place == self.column): #win
-            self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
-            self.main.getTask('difficultyMenu')[2].new()
-            self.main.getTask('scoreMenu')[2].addScore()
-            self.main.change = 'winMenu'
+            self.win = True
+            self.buttons.pop(0)
+            self.showSecret()
         if (self.currentRow >= self.row + 1): #lose
             self.buttons.pop(0)
             self.showSecret()

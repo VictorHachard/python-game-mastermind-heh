@@ -24,7 +24,7 @@ class MainMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.menu = Menu(self.screen, self.main, 6).addText('Mastermind', 60).addButton('Play', 'p').addButton('Game Mode', 'o')
+        self.menu = Menu(self.screen, self.main, 7).addText('Mastermind', 60).addButton('Play', 'p').addButton('Game Mode', 'o').addButton('Settings', 's')
         self.menu.addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
@@ -51,6 +51,8 @@ class MainMenu(object):
             self.main.change = 'scoreMenu'
         elif res == 'r':
             self.main.change = 'ruleMenu'
+        elif res == 's':
+            self.main.change = 'settingsMenu'
 
     """les 3 prochaines méthodes gèrent la création et animation de la bille qui tombe dans le menu"""
 
@@ -81,4 +83,3 @@ class MainMenu(object):
         """c'est cette méthode qui update sur l'écran la position de bille avec les paramètres fallingPawnX et Y"""
         self.handleFallingPawnSpawn()
         self.screen.blit(self.currentFallingPawn, (self.fallingPawnX, self.fallingPawnY))
-

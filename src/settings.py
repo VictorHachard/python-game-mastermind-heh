@@ -25,8 +25,19 @@ BALL = {'red': 'red.png',
         'grey': 'grey.png',
         'darkgrey': 'darkgrey.png'}
 
-RULES_TEXTS = ['Le but du jeu est de trouver la combinaison cachée avant le dernier essai. Chaque essai est composé du placement de 4 pions.']
-RULES_IMAGES = ['rulesImage1.png']
+BALL_B = {'red': 'red_b.png',
+        'green': 'sd.png',
+        'orange': 'sd.png',
+        'blue': 'sd.png',
+        'yellow': 'sd.png',
+        'purple': 'sd.png',
+        'cyan': 'sd.png',
+        'dark': 'sd.png',
+        'white': 'sd.png',
+        'grey': 'sd.png',
+        'darkgrey': 'sd.png'}
+
+RULES_IMAGES = ['ruleT.png', 'rulesImage1.png']
 
 # game settings
 WIDTH = 800

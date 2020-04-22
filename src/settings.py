@@ -43,7 +43,7 @@ BALL_B = {'red': 'red_b.png',
         'p1': 'p1.png',
         'p2': 'p2.png'}
 
-RULES_IMAGES = ['ruleT.png', 'rulesImage1.png', 'title.png']
+RULES_IMAGES = ['title.png', 'title.png', 'title.png']
 
 # game settings
 WIDTH = 800

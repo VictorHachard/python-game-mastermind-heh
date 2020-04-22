@@ -18,12 +18,22 @@ class RuleMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.ruleMenu = Menu(self.screen, self.main, 6)\
-                                                        .addText('Rules', 60)\
-                                                        .addImage(self.main.load_image(RULES_IMAGES[0]), [800,326])\
-                                                        .addText("")\
-                                                        .addText("")\
-                                                        .addButton('Menu', 'm')
+        self.ruleMenu = Menu(self.screen, self.main, 16)\
+            .addText('Rules', 60)\
+            .addText("")\
+            .addText("")\
+            .addText("Masterbeer est un jeu dont le but est de mettre K.O. l’ordinateur ou l’adversaire (qui sera représenter par un pilier", 20)\
+            .addText("de bar dans l’histoire) en lui faisant avaler le plus de bière possible. Pour se faire, le/les joueur(s) devra/devront", 20)\
+            .addText("essayer de trouver la combinaison secrète de différente capsule de bière de l’adversaire. Plus vous vous approcher de la", 20)\
+            .addText("bonne réponse et plus la dose de bière est élevée, plus vous vous éloigner et plus elle sera minime. Le jeu possède deux", 20)\
+            .addText("modes de jeu, un mode solo où l’objectif du joueur sera de défier les plus grands buveurs pour obtenir l’une des", 20)\
+            .addText("différentes bières exotiques au fil des niveaux qui augmenteront en difficulté pour ainsi les collectionner.", 20)\
+            .addText("Ainsi qu’un mode deux joueur qui consistera à trouver le combinaison secrète avant l’autre joueur, le nombre de bière", 20)\
+            .addText("bus est alors comptabilisé pour les deux joueurs pour les départagé. Trouver la combinaison fait remporter directement", 20)\
+            .addText("la partie et du coup fais boire le perdant.", 20)\
+            .addText("")\
+            .addText("")\
+            .addButton('Menu', 'm')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 

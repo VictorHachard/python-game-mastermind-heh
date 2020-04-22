@@ -21,13 +21,13 @@ class GameModeMenu(object):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
         self.gameModeMenu = Menu(self.screen, self.main, 6).addText('Game mode', 60)
         if self.vsPlayer:
-            self.gameModeMenu.addButton('vs: Player 2', 'v').addText('', 0)
+            self.gameModeMenu.addButton('VS: 2 players', 'v').addText('', 0)
         else:
-            self.gameModeMenu.addButton('vs: IA', 'v')
+            self.gameModeMenu.addButton('VS: IA', 'v')
             if self.colorMode:
-                self.gameModeMenu.addButton('multiple colors: On', 'm')
+                self.gameModeMenu.addButton('MultiColor: On', 'm')
             else:
-                self.gameModeMenu.addButton('multiple colors: Off', 'm')
+                self.gameModeMenu.addButton('MultiColor: Off', 'm')
         self.gameModeMenu.addButton('Menu', 'menu')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""

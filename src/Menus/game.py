@@ -32,6 +32,7 @@ class Game(object):
         self.circles_empty_secret_2 = []
         self.buttons = []
         self.texts = []
+        self.rec = []
         self.players = []
         self.currentRow = 1
         self.new()
@@ -75,8 +76,8 @@ class Game(object):
                 else:
                     self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("p2"))
                 switch = not switch
-        self.buttons.append(['Enter', Button(self.screen, self.main).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60, menu = False)])
-        self.buttons.append(['Menu', Button(self.screen, self.main).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60, menu = False)])
+        self.buttons.append(['Enter', Button(self.screen, self.main).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60, menu = False, petit = True, test = 4)])
+        self.buttons.append(['Menu', Button(self.screen, self.main).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60, menu = False, petit = True, test = 2)])
         pygame.mixer.music.load(self.main.suspense["1"])
         pygame.mixer.music.play(loops=-1)
 

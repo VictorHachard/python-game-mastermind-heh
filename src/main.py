@@ -54,6 +54,8 @@ class Main(object):
         self.background_image_b = pygame.transform.scale(self.load_image('bg_b.jpg').convert(), (800, 800))
         self.button = self.load_image('button.png').convert()
         self.button_b = self.load_image('button_b.png').convert()
+        self.pbutton = pygame.transform.scale(self.load_image('button.png').convert(), (160, 70))
+        self.pbutton_b = pygame.transform.scale(self.load_image('button_b.png').convert(), (160, 70))
         self.effects_sounds = {}
         self.suspense = {}
         self.balls = {}

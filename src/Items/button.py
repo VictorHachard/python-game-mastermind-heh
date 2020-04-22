@@ -11,12 +11,14 @@ class Button(object):
         self.x = 0
         self.y = 0
 
-    def createButton(self, point, text, fontSize = 40, colorRect = GREY, colorText = BLACK, menu = True):
+    def createButton(self, point, text, fontSize = 40, colorRect = GREY, colorText = BLACK, menu = True, petit = False, test = 4):
         """Create the object Text, return this"""
         if self.x == 0:
             self.x = point[0]
         self.y = point[1]
         self.menu = menu
+        self.petit = petit
+        self.test = test
         self.colorRect = colorRect
         font = pygame.font.SysFont('comicsans', fontSize)
         self.text = font.render(text, 1, colorText)
@@ -33,7 +35,9 @@ class Button(object):
             btn = self.main.button_b if self.main.getTask('settingsMenu')[2].biere else self.main.button
             self.screen.blit(btn, (WIDTH // 2 - 316 // 2, self.y - 14))
         else:
-            self.rect = pygame.draw.rect(self.screen, self.colorRect, (self.x, self.y, self.text.get_width(), self.text.get_height()), 0)
+            btn = self.main.pbutton_b if self.main.getTask('settingsMenu')[2].biere else self.main.pbutton
+            self.rect = pygame.draw.rect(self.screen, self.colorRect, (WIDTH / self.test - 20, HEIGHT - 75, 160, 70), 0)
+            self.screen.blit(btn, (WIDTH / self.test - 20, HEIGHT - 75))
         self.screen.blit(self.text, (self.x, self.y))
         return self
 

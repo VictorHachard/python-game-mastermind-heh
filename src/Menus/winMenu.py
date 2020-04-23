@@ -19,7 +19,6 @@ class WinMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.difficultyLvl = 0
         self.winMenu = Menu(self.screen, self.main, 7).addText('Win', 60).addText('Special unlock', 50).addText('').addText('').addText('')
         if self.main.getTask('game') != None:
             if self.main.getTask('game')[2].player1Score < self.main.getTask('game')[2].player2Score:
@@ -39,7 +38,7 @@ class WinMenu(object):
         """cette méthode permet de placer les element a render"""
         bg = self.main.background_image_b if self.main.getTask('settingsMenu')[2].biere else self.main.background_image
         self.screen.blit(bg, (0, 0))
-        self.screen.blit(self.main.bottle[self.difficultyLvl], (300, 220))
+        self.screen.blit(self.main.bottle[self.main.getTask('difficultyMenu')[2].difficultyLvl - 1], (300, 220))
         self.winMenu.render()
 
     def events(self, event):

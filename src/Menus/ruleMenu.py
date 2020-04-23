@@ -22,15 +22,15 @@ class RuleMenu(object):
             .addText('Rules', 60)\
             .addText("")\
             .addText("")\
-            .addText("Masterbeer est un jeu dont le but est de mettre K.O. l’ordinateur ou l’adversaire (qui sera représenter par un pilier", 20)\
-            .addText("de bar dans l’histoire) en lui faisant avaler le plus de bière possible. Pour se faire, le/les joueur(s) devra/devront", 20)\
-            .addText("essayer de trouver la combinaison secrète de différente capsule de bière de l’adversaire. Plus vous vous approcher de la", 20)\
-            .addText("bonne réponse et plus la dose de bière est élevée, plus vous vous éloigner et plus elle sera minime. Le jeu possède deux", 20)\
-            .addText("modes de jeu, un mode solo où l’objectif du joueur sera de défier les plus grands buveurs pour obtenir l’une des", 20)\
-            .addText("différentes bières exotiques au fil des niveaux qui augmenteront en difficulté pour ainsi les collectionner.", 20)\
-            .addText("Ainsi qu’un mode deux joueur qui consistera à trouver le combinaison secrète avant l’autre joueur, le nombre de bière", 20)\
-            .addText("bus est alors comptabilisé pour les deux joueurs pour les départagé. Trouver la combinaison fait remporter directement", 20)\
-            .addText("la partie et du coup fais boire le perdant.", 20)\
+            .addText("Masterbeer is a game whose goal is to knock out the computer or the opponent (who will be representedby a bar pillar", 20)\
+            .addText("in history) by making him swallow as much beer as possible. To do so, the player (s) must try to find the secret", 20)\
+            .addText("combination of the opponent's different beer caps. The closer you get to the correct answer and the higher the dose of beer,", 20)\
+            .addText("the further you go and the smaller it will be. The game has two game modes, a single player mode where the player’s", 20)\
+            .addText("objective will be to challenge the biggest drinkers to get one of the different exotic beers over the levels which", 20)\
+            .addText("will increase in difficulty to collect them. As well as a two players mode which will consist in finding the secret", 20)\
+            .addText("combination before the other player, the number of beer busses is then counted for the two players for the winner.", 20)\
+            .addText("Finding the combination directly wins the game and suddenly make the loser drink", 20)\
+            .addText("", 20)\
             .addText("")\
             .addText("")\
             .addButton('Menu', 'm')

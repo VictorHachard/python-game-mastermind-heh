@@ -36,7 +36,7 @@ class DifficultyMenu(object):
         game = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_F2:
-                self.difficultyLvl = 10
+                self.difficultyLvl = 4
                 self.new()
         res = self.difficultyMenu.update(event)
         if res == 'menu':

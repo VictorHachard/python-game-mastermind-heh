@@ -38,7 +38,10 @@ class WinMenu(object):
         """cette méthode permet de placer les element a render"""
         bg = self.main.background_image_b if self.main.getTask('settingsMenu')[2].biere else self.main.background_image
         self.screen.blit(bg, (0, 0))
-        self.screen.blit(self.main.bottle[self.main.getTask('difficultyMenu')[2].difficultyLvl - 1], (300, 220))
+        if self.main.getTask('difficultyMenu')[2].difficultyLvl > 4:
+            self.screen.blit(self.main.bottle[4], (300, 220))
+        else:
+            self.screen.blit(self.main.bottle[self.main.getTask('difficultyMenu')[2].difficultyLvl - 1], (300, 220))
         self.winMenu.render()
 
     def events(self, event):

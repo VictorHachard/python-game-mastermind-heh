@@ -90,13 +90,14 @@ class Game(object):
         pass
 
     def showSecret(self):
-        i = 0
-        for circle in self.circles[0]:
-            for color in self.colors:
-                if color[0] == self.secret[i][0]:
-                    circle.fill(color[0])
-                    break
-            i += 1
+        if len(self.secret) != 0:
+            i = 0
+            for circle in self.circles[0]:
+                for color in self.colors:
+                    if color[0] == self.secret[i][0]:
+                        circle.fill(color[0])
+                        break
+                i += 1
 
     def createCircle(self, i, j):
         """cette méthode est appellée dans la méthode new et sert a créer un cerle en gris et le placer dans le game"""
@@ -161,14 +162,14 @@ class Game(object):
             if button[0] == 'Menu' and button[1].isMouseIn(pos):
                 pygame.mixer.music.load(self.main.suspense["1"])
                 pygame.mixer.music.play(loops=-1)
-                if (self.currentRow >= self.row + 1):
-                    self.main.change = 'loseMenu'
-                elif self.win:
+                if self.win:
                     self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
                     self.main.getTask('difficultyMenu')[2].new()
                     self.main.getTask('scoreMenu')[2].addScore()
                     self.main.getTask('winMenu')[2].new()
                     self.main.change = 'winMenu'
+                elif (self.currentRow >= self.row + 1):
+                    self.main.change = 'loseMenu'
                 else:
                     self.main.change = 'mainMenu'
             if button[0] == 'Enter' and button[1].isMouseIn(pos) and self.currentRow <= self.row:

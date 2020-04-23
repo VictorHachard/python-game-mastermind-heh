@@ -46,7 +46,6 @@ class Main(object):
         self.image_folder = path.join(game_folder, 'image')
         sound_folder = path.join(game_folder, 'sound')
         music_folder = path.join(game_folder, 'music')
-        self.board = pygame.transform.scale(self.load_image('board.png').convert(), (800, 800))
         self.hole = self.load_image('hole.png').convert_alpha()
         self.hole_b = self.load_image('hole_b.png').convert_alpha()
         #self.anim = [self.load_image('1.jpg'), self.load_image('2.jpg'), self.load_image('3.png')]

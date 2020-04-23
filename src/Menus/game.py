@@ -28,8 +28,8 @@ class Game(object):
         self.player1Score = 0
         self.player2Score = 0
         self.playerSoloScore = 0
-        self.isBossAlive= True
-        self.bossHealthBar= 8 * column * row
+        self.isBossAlive = True
+        self.bossHealthBar = 6 * (column // 2 + 1) * (row * 2)
 
         self.font = pygame.font.SysFont('comicsans', 20)
         self.secret = []
@@ -41,8 +41,8 @@ class Game(object):
         self.rec = []
         self.players = []
         self.currentRow = 1
-        self.healthBarPlayer1 = 4 * column * row
-        self.healthBarPlayer2 = 4 * column * row
+        self.healthBarPlayer1 = (6 * (column // 2 + 1) * (row * 2)) // 2
+        self.healthBarPlayer2 = (6 * (column // 2 + 1) * (row * 2)) // 2
         self.player1Sobre= True
         self.player2Sobre= True
         self.HPWinner = 0

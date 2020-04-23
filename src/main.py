@@ -30,9 +30,9 @@ class Main(object):
         self.tasks = []
         self.tasks.append(['settingsMenu', False, SettingsMenu(self, self.screen)])
         self.tasks.append(['mainMenu', True, MainMenu(self, self.screen)])
+        self.tasks.append(['scoreMenu', False, ScoreMenu(self, self.screen)])
         self.tasks.append(['difficultyMenu', False, DifficultyMenu(self, self.screen)])
         self.tasks.append(['winMenu', False, WinMenu(self, self.screen)])
-        self.tasks.append(['scoreMenu', False, ScoreMenu(self, self.screen)])
         self.tasks.append(['gameModeMenu', False, GameModeMenu(self, self.screen)])
         self.tasks.append(['ruleMenu', False, RuleMenu(self, self.screen)])
         self.tasks.append(['loseMenu', False, LoseMenu(self, self.screen)])

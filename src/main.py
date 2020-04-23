@@ -97,8 +97,8 @@ class Main(object):
                     self.events(task[2])
                     if self.change != '':
                         task[1] = not task[1]
-                    self.update(task[2])
                     self.draw(task[2])
+                    self.update(task[2])
 
     def quit(self):
         pygame.quit()

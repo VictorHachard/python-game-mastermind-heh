@@ -156,8 +156,6 @@ class Game(object):
         else:
             self.checkNoHPLeftSolo()
 
-
-
     def showSecret(self):
         if len(self.secret) != 0:
             i = 0
@@ -239,6 +237,7 @@ class Game(object):
                 if self.win:
                     if(self.difficultyMenu.difficultyLvl == self.difficultyLvl):
                         self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
+                        self.main.getTask('scoreMenu')[2].addBottle()
                     else:
                         self.main.getTask('difficultyMenu')[2]
                     self.main.getTask('difficultyMenu')[2].new()

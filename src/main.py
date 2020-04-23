@@ -58,9 +58,12 @@ class Main(object):
         self.effects_sounds = {}
         self.suspense = {}
         self.balls = {}
+        self.bottle = []
         self.balls_b = {}
         self.falling = []
         self.falling_b = []
+        for i in range(5):
+            self.bottle.append(pygame.transform.scale(self.load_image(BOTTLE_IMAGES[i]).convert_alpha(), (200,200)))
         for type in BALL:
             self.balls[type] = self.load_image(BALL[type]).convert_alpha()
             self.falling.append(pygame.transform.scale(self.balls[type], (80,80)))

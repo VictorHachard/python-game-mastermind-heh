@@ -13,7 +13,10 @@ CYAN = (0, 255, 255)
 PURPLE = (128, 0, 128)
 P1 = 0
 P2 = 0
-COLORS = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN], ['purple', PURPLE], ['dark', BLACK], ['white', WHITE], ['p1', P1], ['p1', P1]]
+P3 = 0
+P4 = 0
+P5 = 0
+COLORS = [['red', RED], ['blue', BLUE], ['green', GREEN], ['orange', ORANGE], ['yellow', YELLOW], ['cyan', CYAN], ['purple', PURPLE], ['dark', BLACK], ['white', WHITE], ['p1', P1], ['p2', P2], ['p3', P3], ['p4', P4], ['p5', P5]]
 
 BALL = {'red': 'red.png',
         'green': 'green.png',
@@ -28,7 +31,9 @@ BALL = {'red': 'red.png',
         'darkgrey': 'darkgrey.png',
         'p1': 'p1.png',
         'p2': 'p2.png',
-        'p3': 'p3.png'}
+        'p3': 'p3.png',
+        'p4': 'p4.png',
+        'p5': 'p5.png'}
 
 BALL_B = {'red': 'red_b.png',
         'green': 'green_b.png',
@@ -43,7 +48,9 @@ BALL_B = {'red': 'red_b.png',
         'darkgrey': 'darkgrey_b.png',
         'p1': 'p1.png',
         'p2': 'p2.png',
-        'p3': 'p3.png'}
+        'p3': 'p3.png',
+        'p4': 'p4.png',
+        'p5': 'p5.png'}
 
 BOTTLE_IMAGES = ['1.png', '2.png', '3.png', '4.png', '5.png']
 

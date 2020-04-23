@@ -9,7 +9,7 @@ from Items.foreGroundImage import ForeGroundImage
 class Game(object):
     """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""
 
-    def __init__(self, main, screen, difficultyMenu, difficultyLvl, column = 4, row = 6, radius = 24, colors = 5, offeset = 0):
+    def __init__(self, main, screen, difficultyMenu, difficultyLvl, column = 4, row = 6, radius = 24, colors = 5, offeset = 0, boss = 1):
         """dans ce constructeur on y défini les paramètres du niveau comme le nombre de lignes, colonnes et le nombre de couleur. On a mis des valeurs par défault pour
         les games de base. Les attributs de la lignes 21 a 25 sont des tableaux comprenant respectivement les éléments du game. currentRow est la l'essai auquel on est
         actuellement donc 1 par default."""
@@ -28,10 +28,14 @@ class Game(object):
         self.player1Score = 0
         self.player2Score = 0
         self.playerSoloScore = 0
+        self.p1 = random.randint(1, 5)
+        self.p2 = random.randint(1, 5)
+        while self.p2 == self.p1:
+          self.p2 = random.randint(1, 5)
         self.isBossAlive = True
         self.bossHealthBar = 6 * (column // 2 + 1) * (row * 2)
 
-        self.boss = random.randint(1, 3)
+        self.boss = boss
         self.font = pygame.font.SysFont('comicsans', 20)
         self.secret = []
         self.circles = []
@@ -84,9 +88,9 @@ class Game(object):
             for n in range(1, self.row + 1):
                 x = marginX + self.column * (marginX + self.radius)
                 if switch:
-                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("p1"))
+                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill('p' + str(self.p1)))
                 else:
-                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill("p2"))
+                    self.players.append(Circle(self.main, self.screen, self.colors).horizontal(x).vertical(marginY + n * (marginY + self.radius)).size(self.radius).fill('p' + str(self.p2)))
                 switch = not switch
         self.buttons.append(['Enter', Button(self.screen, self.main).createButton([WIDTH / 4, HEIGHT - 60], 'Enter', 60, menu = False, petit = True, test = 4)])
         self.buttons.append(['Menu', Button(self.screen, self.main).createButton([WIDTH / 2, HEIGHT - 60], 'Menu', 60, menu = False, petit = True, test = 2)])
@@ -95,8 +99,8 @@ class Game(object):
 
     def create2PlayersHeathBar(self):
         """cette méthode crée et place les barres de pv, elle esr appellée dans la méthode draw is le mode 2player est on"""
-        player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p1']), (50, 50))
-        player2Avatar = pygame.transform.scale(self.main.load_image(BALL['p2']), (50, 50))
+        player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p' + str(self.p1)]), (50, 50))
+        player2Avatar = pygame.transform.scale(self.main.load_image(BALL['p' + str(self.p2)]), (50, 50))
         self.screen.blit(player1Avatar,(50,8))
         self.screen.blit(player2Avatar, (450,8))
         fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (100, 20, self.healthBarPlayer1, 20))

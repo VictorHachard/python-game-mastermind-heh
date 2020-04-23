@@ -41,8 +41,8 @@ class Game(object):
         self.rec = []
         self.players = []
         self.currentRow = 1
-        self.healthBarPlayer1 = 6 * column * row
-        self.healthBarPlayer2 = 6 * column * row
+        self.healthBarPlayer1 = 4 * column * row
+        self.healthBarPlayer2 = 4 * column * row
         self.player1Sobre= True
         self.player2Sobre= True
         self.HPWinner = 0
@@ -94,32 +94,32 @@ class Game(object):
 
     def create2PlayersHeathBar(self):
         """cette méthode crée et place les barres de pv, elle esr appellée dans la méthode draw is le mode 2player est on"""
-        player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p1']), (50,50))
+        player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p1']), (50, 50))
         player2Avatar = pygame.transform.scale(self.main.load_image(BALL['p2']), (50, 50))
-        self.screen.blit(player1Avatar,(600,10))
-        self.screen.blit(player2Avatar, (600,50))
-        fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (650, 20, 100, 20))
-        fullhealthbar2 = pygame.draw.rect(self.screen, GREY, (650, 60, 100, 20))
+        self.screen.blit(player1Avatar,(50,8))
+        self.screen.blit(player2Avatar, (450,8))
+        fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (100, 20, self.healthBarPlayer1, 20))
+        fullhealthbar2 = pygame.draw.rect(self.screen, GREY, (500, 20, self.healthBarPlayer1, 20))
 
         if (self.healthBarPlayer1 - (self.player2Score) * 6 <= 0):
             self.player1Sobre = False
         else:
-            healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 20, self.healthBarPlayer1 - (self.player2Score) * 6, 20))
+            healthbar1 = pygame.draw.rect(self.screen, GREEN,(100, 20, self.healthBarPlayer1 - (self.player2Score) * 6, 20))
         if (self.healthBarPlayer2 - (self.player1Score) * 6 <= 0):
             self.player2Sobre = False
         else:
-            healthbar2 = pygame.draw.rect(self.screen, GREEN, (650, 60, self.healthBarPlayer2-(self.player1Score)* 6, 20))
+            healthbar2 = pygame.draw.rect(self.screen, GREEN, (500, 20, self.healthBarPlayer2-(self.player1Score)* 6, 20))
 
         self.update()
 
     def createBossHealthBar(self):
         player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p1']), (50, 50))
-        self.screen.blit(player1Avatar, (600, 20))
-        fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (650, 40, 100, 20))
+        self.screen.blit(player1Avatar, (50, 8))
+        fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (100, 20, self.bossHealthBar, 20))
         if (self.bossHealthBar - (self.playerSoloScore) * 6 <= 0):
             self.isBossAlive = False
         else:
-            healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 40, self.bossHealthBar - (self.playerSoloScore) * 6, 20))
+            healthbar1 = pygame.draw.rect(self.screen, GREEN,(100, 20, self.bossHealthBar - (self.playerSoloScore) * 6, 20))
         self.update()
 
     def checkNoHPLeftSolo(self):

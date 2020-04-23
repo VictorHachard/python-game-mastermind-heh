@@ -303,7 +303,6 @@ class Game(object):
                     self.player2Score += 100
                 else:
                     self.player2Score += place * 2 + present
-            print(str(self.player1Score) + ' ' + str(self.player2Score))
         elif not self.vsPlayer: #solo vs boss
             if place == self.column:
                 self.playerSoloScore += 100

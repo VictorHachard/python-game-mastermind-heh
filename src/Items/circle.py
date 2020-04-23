@@ -93,7 +93,7 @@ class Circle(object):
         balls = self.main.balls_b if self.main.getTask('settingsMenu')[2].biere else self.main.balls
         hole = self.main.hole_b if self.main.getTask('settingsMenu')[2].biere else self.main.hole
         n = self.radius * 2 + self.radius//2
-        if not (self.colorStr == 'p1' or self.colorStr == '21' or self.colorStr == 'p3' or self.colorStr == 'p4' or self.colorStr == 'p5'):
+        if not (self.colorStr == 'p1' or self.colorStr == 'p2' or self.colorStr == 'p3' or self.colorStr == 'p4' or self.colorStr == 'p5'):
             self.screen.blit(pygame.transform.scale(hole, (n, n)), (self.x - self.radius, self.y - self.radius))
         if not self.colorStr == 'grey' and not self.color == DARKGREY:
             self.screen.blit(pygame.transform.scale(balls[self.colorStr], (n, n)), (self.x - self.radius, self.y - self.radius))

@@ -18,11 +18,12 @@ class MainMenu(object):
         self.isPawnFalling = False
         self.fallingPawnX = 0
         self.fallingPawnY = -80
+        self.falling = self.main.falling
+        self.currentFallingPawn = self.falling[0]
+        self.currentFalling = 0;
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
-        self.falling = self.main.falling_b if self.main.getTask('settingsMenu')[2].biere else self.main.falling
-        self.currentFallingPawn = self.falling[0]
         self.menu = Menu(self.screen, self.main, 7)
         self.menu.addText('MasterBeer', 60)
         self.menu.addButton('Play', 'p').addButton('Game Mode', 'o').addButton('Settings', 's').addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')
@@ -61,10 +62,12 @@ class MainMenu(object):
         """cette méthode crée une bille a positionner si il y en a pas encore (il alterne entre rouge et blanc) et la positionne, si il y a déja une bille
         il appelle la méthode fallingPawnUpdatePos()"""
         if not self.isPawnFalling:
-            if self.currentFallingPawn == self.falling[0]:
-                self.currentFallingPawn = self.falling[1]
-            else :
+            if self.currentFalling == 12: #len liste -1
                 self.currentFallingPawn = self.falling[0]
+                self.currentFalling = 0
+            else :
+                self.currentFallingPawn = self.falling[self.currentFalling+1]
+                self.currentFalling+=1
             self.fallingPawnX= random.randint(1, WIDTH-81)
             self.fallingPawnY= -80
             self.isPawnFalling= True

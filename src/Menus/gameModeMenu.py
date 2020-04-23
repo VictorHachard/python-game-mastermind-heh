@@ -29,7 +29,7 @@ class GameModeMenu(object):
             if self.vsPlayer2:
                 self.gameModeMenu.addButton('VS: Player', 'v').addText('', 0)
             else:
-                self.gameModeMenu.addButton('sandbox', 'v').addText('', 0)
+                self.gameModeMenu.addButton('Sandbox', 'v').addText('', 0)
         else:
             self.gameModeMenu.addButton('VS: IA', 'v')
             if self.colorMode:

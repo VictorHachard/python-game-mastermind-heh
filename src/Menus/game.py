@@ -255,7 +255,7 @@ class Game(object):
             if self.playerTurn: #p1
                 self.player1Score += place * 2 + present
             else:
-                self.player2Score += place + present
+                self.player2Score += place * 2 + present
             print(str(self.player1Score) + ' ' + str(self.player2Score))
         self.playerTurn = not self.playerTurn
         self.play()

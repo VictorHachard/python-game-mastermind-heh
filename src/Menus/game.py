@@ -40,6 +40,7 @@ class Game(object):
         self.healthBarPlayer2 = 100
         self.player1Sobre= True
         self.player2Sobre= True
+        self.HPWinner = 0
         self.new()
 
     def new(self):
@@ -93,17 +94,24 @@ class Game(object):
         self.screen.blit(player2Avatar, (600,50))
         fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (650, 20, 100, 20))
         fullhealthbar2 = pygame.draw.rect(self.screen, GREY, (650, 60, 100, 20))
+
         if (self.healthBarPlayer1 - (self.player2Score) * 8 <= 0):
-            healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 20,0, 20))
             self.player1Sobre = False
         else:
             healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 20, self.healthBarPlayer1 - (self.player2Score) * 8, 20))
         if (self.healthBarPlayer2 - (self.player1Score) * 8 <= 0):
-            healthbar2 = pygame.draw.rect(self.screen, GREEN, (650, 20, 0, 20))
             self.player2Sobre = False
         else:
-            healthbar2 = pygame.draw.rect(self.screen, GREEN, (650, 60, self.healthBarPlayer2-(self.player1Score)*8, 20))
+            healthbar2 = pygame.draw.rect(self.screen, GREEN, (650, 60, self.healthBarPlayer2-(self.player1Score)* 8, 20))
+
         self.update()
+
+    def checkNoHPLeft(self):
+        if not self.player1Sobre or not self.player2Sobre:
+            while len(self.buttons) == 2:
+                self.win = True
+                self.buttons.pop(0)
+                self.showSecret()
 
     def addImage(self, image, size):
         """Add an image"""
@@ -117,11 +125,7 @@ class Game(object):
             pygame.mixer.music.play(loops=-1)
 
     def update(self):
-        if not self.player1Sobre or not self.player2Sobre:
-            while len(self.buttons) ==2:
-                self.win = True
-                self.buttons.pop(0)
-                self.showSecret()
+       self.checkNoHPLeft()
 
 
     def showSecret(self):
@@ -253,9 +257,15 @@ class Game(object):
         self.currentRow += 1
         if self.vsPlayer2:
             if self.playerTurn: #p1
-                self.player1Score += place * 2 + present
+                if place == 4:
+                    self.player1Score += 100
+                else:
+                    self.player1Score += place * 2 + present
             else:
-                self.player2Score += place * 2 + present
+                if place == 4:
+                    self.player2Score += 100
+                else:
+                    self.player2Score += place * 2 + present
             print(str(self.player1Score) + ' ' + str(self.player2Score))
         self.playerTurn = not self.playerTurn
         self.play()

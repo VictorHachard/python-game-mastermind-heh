@@ -23,7 +23,7 @@ class WinMenu(object):
         self.winMenu = Menu(self.screen, self.main, 6).addText('Win', 60)
         if self.main.getTask('game') != None:
             if self.main.getTask('game')[2].player1Score < self.main.getTask('game')[2].player2Score:
-                self.winMenu.addText('Player 2', 'm')
+                self.winMenu.addText('Player 2', 40)
             elif self.main.getTask('game')[2].player1Score > self.main.getTask('game')[2].player2Score:
                 self.winMenu.addText('Player 1', 40)
         self.winMenu.addButton('Menu', 'm')

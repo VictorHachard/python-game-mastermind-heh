@@ -123,9 +123,6 @@ class Main(object):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    self.quit()
             task.events(event)
 
 m = Main()

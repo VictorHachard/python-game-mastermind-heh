@@ -9,13 +9,15 @@ from Items.foreGroundImage import ForeGroundImage
 class Game(object):
     """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""
 
-    def __init__(self, main, screen, column = 4, row = 6, radius = 24, colors = 5, offeset = 0):
+    def __init__(self, main, screen, difficultyMenu, difficultyLvl, column = 4, row = 6, radius = 24, colors = 5, offeset = 0):
         """dans ce constructeur on y défini les paramètres du niveau comme le nombre de lignes, colonnes et le nombre de couleur. On a mis des valeurs par défault pour
         les games de base. Les attributs de la lignes 21 a 25 sont des tableaux comprenant respectivement les éléments du game. currentRow est la l'essai auquel on est
         actuellement donc 1 par default."""
         self.main = main
         self.screen = screen
         self.column, self.row = column, row
+        self.difficultyMenu = difficultyMenu
+        self.difficultyLvl = difficultyLvl
         self.color = colors
         self.colors = COLORS[:colors]
         self.radius = radius
@@ -25,6 +27,9 @@ class Game(object):
         self.playerTurn = True #1debase
         self.player1Score = 0
         self.player2Score = 0
+        self.playerSoloScore = 0
+        self.isBossAlive= True
+        self.bossHealthBar= 100
 
         self.font = pygame.font.SysFont('comicsans', 20)
         self.secret = []
@@ -87,7 +92,8 @@ class Game(object):
         pygame.mixer.music.load(self.main.suspense["1"])
         pygame.mixer.music.play(loops=-1)
 
-    def displayHealhBars(self):
+    def create2PlayersHeathBar(self):
+        """cette méthode crée et place les barres de pv, elle esr appellée dans la méthode draw is le mode 2player est on"""
         player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p1']), (50,50))
         player2Avatar = pygame.transform.scale(self.main.load_image(BALL['p2']), (50, 50))
         self.screen.blit(player1Avatar,(600,10))
@@ -95,18 +101,37 @@ class Game(object):
         fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (650, 20, 100, 20))
         fullhealthbar2 = pygame.draw.rect(self.screen, GREY, (650, 60, 100, 20))
 
-        if (self.healthBarPlayer1 - (self.player2Score) * 8 <= 0):
+        if (self.healthBarPlayer1 - (self.player2Score) * 6 <= 0):
             self.player1Sobre = False
         else:
-            healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 20, self.healthBarPlayer1 - (self.player2Score) * 8, 20))
-        if (self.healthBarPlayer2 - (self.player1Score) * 8 <= 0):
+            healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 20, self.healthBarPlayer1 - (self.player2Score) * 6, 20))
+        if (self.healthBarPlayer2 - (self.player1Score) * 6 <= 0):
             self.player2Sobre = False
         else:
-            healthbar2 = pygame.draw.rect(self.screen, GREEN, (650, 60, self.healthBarPlayer2-(self.player1Score)* 8, 20))
+            healthbar2 = pygame.draw.rect(self.screen, GREEN, (650, 60, self.healthBarPlayer2-(self.player1Score)* 6, 20))
 
         self.update()
 
-    def checkNoHPLeft(self):
+    def createBossHealthBar(self):
+        player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p1']), (50, 50))
+        self.screen.blit(player1Avatar, (600, 20))
+        fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (650, 40, 100, 20))
+        if (self.bossHealthBar - (self.playerSoloScore) * 6 <= 0):
+            self.isBossAlive = False
+        else:
+            healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 40, self.bossHealthBar - (self.playerSoloScore) * 6, 20))
+        self.update()
+
+    def checkNoHPLeftSolo(self):
+        """cette méthode permet de checker si un player a plus de pv, si c'est le cas, l'autre a win et le boutton enter est enlevé"""
+        if not self.isBossAlive:
+            while len(self.buttons) == 2:
+                self.win = True
+                self.buttons.pop(0)
+                self.showSecret()
+
+    def checkNoHPLeft2Player(self):
+        """cette méthode permet de checker si un player a plus de pv, si c'est le cas, l'autre a win et le boutton enter est enlevé"""
         if not self.player1Sobre or not self.player2Sobre:
             while len(self.buttons) == 2:
                 self.win = True
@@ -125,7 +150,12 @@ class Game(object):
             pygame.mixer.music.play(loops=-1)
 
     def update(self):
-       self.checkNoHPLeft()
+        """cette méthode update l'image, elle permet a la barre de pv de ce render correctement et faire disparaitre le boutton enter en cas de victoire"""
+        if self.vsPlayer2:
+            self.checkNoHPLeft2Player()
+        else:
+            self.checkNoHPLeftSolo()
+
 
 
     def showSecret(self):
@@ -164,7 +194,9 @@ class Game(object):
         bg = self.main.background_image_b if self.main.getTask('settingsMenu')[2].biere else self.main.background_image
         self.screen.blit(bg, (0, 0))
         if self.vsPlayer2:
-            self.displayHealhBars()
+            self.create2PlayersHeathBar()
+        else:
+            self.createBossHealthBar()
         for j in range(self.row + 1):
             for circle in self.circles[j]:
                 circle.render()
@@ -200,14 +232,15 @@ class Game(object):
         """cette méthode passe en revue tout les bouttons grace a la boucle for numero 1, si c'est le boutton menu on retourne au menu, si c'est le boutton enter alors
         on vérifie si on joue avec un autre joueur, si non, alors il attends que le joueur 1 le génère. A la fin de cette méthode la méthode la méthode verification
          est appellée si le player 1 n'était pas en train de générer le secret"""
-        if not self.player1Sobre or not self.player2Sobre:
-            self.win= True
         for button in self.buttons:
             if button[0] == 'Menu' and button[1].isMouseIn(pos):
                 pygame.mixer.music.load(self.main.suspense["1"])
                 pygame.mixer.music.play(loops=-1)
                 if self.win:
-                    self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
+                    if(self.difficultyMenu.difficultyLvl == self.difficultyLvl):
+                        self.main.getTask('difficultyMenu')[2].difficultyLvl += 1
+                    else:
+                        self.main.getTask('difficultyMenu')[2]
                     self.main.getTask('difficultyMenu')[2].new()
                     self.main.getTask('scoreMenu')[2].addScore()
                     self.main.getTask('winMenu')[2].new()
@@ -235,7 +268,7 @@ class Game(object):
                     self.verification()
 
     def verification(self):
-        """cette méthode est appellée après chaque essai de combinaison, elle vérifie si la combinanaison est bonne ou pas."""
+        """cette méthode est appellée après chaque essai de combinaison, elle vérifie si la combinanaison est bonne ou pas et ajoute le score au player"""
         for secret in self.secret:
             secret[1] = ''
         if not self.canEnter(self.currentRow):
@@ -255,7 +288,7 @@ class Game(object):
                     present += 1
         self.createHints(place, present)
         self.currentRow += 1
-        if self.vsPlayer2:
+        if self.vsPlayer2: # 2 vs ia
             if self.playerTurn: #p1
                 if place == 4:
                     self.player1Score += 100
@@ -267,6 +300,11 @@ class Game(object):
                 else:
                     self.player2Score += place * 2 + present
             print(str(self.player1Score) + ' ' + str(self.player2Score))
+        elif not self.vsPlayer: #solo vs boss
+            if place == 4:
+                self.playerSoloScore += 100
+            else:
+                self.playerSoloScore += place * 2 + present
         self.playerTurn = not self.playerTurn
         self.play()
         if (place == self.column): #win

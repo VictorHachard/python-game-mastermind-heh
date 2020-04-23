@@ -42,15 +42,15 @@ class DifficultyMenu(object):
         if res == 'menu':
             self.main.change = 'mainMenu'
         elif res == 'e' and self.difficultyLvl >= 0:
-            game = Game(self.main, self.screen)
+            game = Game(self.main, self.screen, self, 0)
         elif res == 'm' and self.difficultyLvl >= 1:
-            game = Game(self.main, self.screen, column = 4, row = 4)
+            game = Game(self.main, self.screen, self, 1, column = 4, row = 4)
         elif res == 'h' and self.difficultyLvl >= 2:
-            game = Game(self.main, self.screen, column = 5, row = 5)
+            game = Game(self.main, self.screen, self, 2, column = 5, row = 5)
         elif res == 'ex' and self.difficultyLvl >= 3:
-            game = Game(self.main, self.screen, column = 6, row = 6, colors = 7)
+            game = Game(self.main, self.screen, self, 3, column = 6, row = 6, colors = 7)
         elif res == 'a' and self.difficultyLvl >= 4:
-            game = Game(self.main, self.screen, column = 7, row = 6, colors = 7)
+            game = Game(self.main, self.screen, self, 4, column = 7, row = 6, colors = 7)
         if res == 'e' or res == 'm' or res == 'h' or res == 'ex' or res == 'a':
             if game:
                 self.main.getTask('game')[2] = game

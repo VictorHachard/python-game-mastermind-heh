@@ -27,7 +27,8 @@ BALL = {'red': 'red.png',
         'grey': 'grey.png',
         'darkgrey': 'darkgrey.png',
         'p1': 'p1.png',
-        'p2': 'p2.png'}
+        'p2': 'p2.png',
+        'p3': 'p3.png'}
 
 BALL_B = {'red': 'red_b.png',
         'green': 'green_b.png',
@@ -41,7 +42,8 @@ BALL_B = {'red': 'red_b.png',
         'grey': 'grey_b.png',
         'darkgrey': 'darkgrey_b.png',
         'p1': 'p1.png',
-        'p2': 'p2.png'}
+        'p2': 'p2.png',
+        'p3': 'p3.png'}
 
 BOTTLE_IMAGES = ['1.png', '2.png', '3.png', '4.png', '5.png']
 

@@ -24,6 +24,8 @@ class MainMenu(object):
 
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
+        self.falling = self.main.falling_b if self.main.getTask('settingsMenu')[2].biere else self.main.falling
+        self.currentFallingPawn = self.falling[0]
         self.menu = Menu(self.screen, self.main, 7)
         self.menu.addText('MasterBeer', 60)
         self.menu.addButton('Play', 'p').addButton('Game Mode', 'o').addButton('Settings', 's').addButton('Rules', 'r').addButton('High score', 'h').addButton('Quit', 'q')

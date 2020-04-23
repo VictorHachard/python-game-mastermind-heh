@@ -31,6 +31,7 @@ class Game(object):
         self.isBossAlive = True
         self.bossHealthBar = 6 * (column // 2 + 1) * (row * 2)
 
+        self.boss = random.randint(1, 3)
         self.font = pygame.font.SysFont('comicsans', 20)
         self.secret = []
         self.circles = []
@@ -113,7 +114,7 @@ class Game(object):
         self.update()
 
     def createBossHealthBar(self):
-        player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p1']), (50, 50))
+        player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p' + str(self.boss)]), (50, 50))
         self.screen.blit(player1Avatar, (50, 8))
         fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (100, 20, self.bossHealthBar, 20))
         if (self.bossHealthBar - (self.playerSoloScore) * 6 <= 0):

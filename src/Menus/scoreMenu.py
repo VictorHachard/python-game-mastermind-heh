@@ -28,7 +28,7 @@ class ScoreMenu(object):
         self.write_file()
 
     def addBottle(self, i = 1):
-        if self.bottle + i == 5:
+        if self.bottle + i == 6:
             return
         else:
             self.bottle += i

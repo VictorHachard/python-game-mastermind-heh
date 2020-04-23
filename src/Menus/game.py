@@ -290,18 +290,18 @@ class Game(object):
         self.currentRow += 1
         if self.vsPlayer2: # 2 vs ia
             if self.playerTurn: #p1
-                if place == 4:
+                if place == self.column:
                     self.player1Score += 100
                 else:
                     self.player1Score += place * 2 + present
             else:
-                if place == 4:
+                if place == self.column:
                     self.player2Score += 100
                 else:
                     self.player2Score += place * 2 + present
             print(str(self.player1Score) + ' ' + str(self.player2Score))
         elif not self.vsPlayer: #solo vs boss
-            if place == 4:
+            if place == self.column:
                 self.playerSoloScore += 100
             else:
                 self.playerSoloScore += place * 2 + present

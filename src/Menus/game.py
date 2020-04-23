@@ -4,11 +4,12 @@ from pygame import locals as const
 from Items.button import Button
 from Items.text import Text
 from Items.circle import Circle
+from Items.foreGroundImage import ForeGroundImage
 
 class Game(object):
     """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""
 
-    def __init__(self, main = None, screen = None, column = 4, row = 6, radius = 24, colors = 5, offeset = 0):
+    def __init__(self, main, screen, column = 4, row = 6, radius = 24, colors = 5, offeset = 0):
         """dans ce constructeur on y défini les paramètres du niveau comme le nombre de lignes, colonnes et le nombre de couleur. On a mis des valeurs par défault pour
         les games de base. Les attributs de la lignes 21 a 25 sont des tableaux comprenant respectivement les éléments du game. currentRow est la l'essai auquel on est
         actuellement donc 1 par default."""
@@ -35,6 +36,10 @@ class Game(object):
         self.rec = []
         self.players = []
         self.currentRow = 1
+        self.healthBarPlayer1 = 100
+        self.healthBarPlayer2 = 100
+        self.player1Sobre= True
+        self.player2Sobre= True
         self.new()
 
     def new(self):
@@ -81,6 +86,31 @@ class Game(object):
         pygame.mixer.music.load(self.main.suspense["1"])
         pygame.mixer.music.play(loops=-1)
 
+    def displayHealhBars(self):
+        player1Avatar = pygame.transform.scale(self.main.load_image(BALL['p1']), (50,50))
+        player2Avatar = pygame.transform.scale(self.main.load_image(BALL['p2']), (50, 50))
+        self.screen.blit(player1Avatar,(600,10))
+        self.screen.blit(player2Avatar, (600,50))
+        fullhealthbar1 = pygame.draw.rect(self.screen, GREY, (650, 20, 100, 20))
+        fullhealthbar2 = pygame.draw.rect(self.screen, GREY, (650, 60, 100, 20))
+        if (self.healthBarPlayer1 - (self.player2Score) * 10 <= 0):
+            healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 20,0, 20))
+            self.player1Sobre = False
+        else:
+            healthbar1 = pygame.draw.rect(self.screen, GREEN,(650, 20, self.healthBarPlayer1 - (self.player2Score) * 8, 20))
+        if (self.healthBarPlayer2 - (self.player1Score) * 10 <= 0):
+            healthbar2 = pygame.draw.rect(self.screen, GREEN, (650, 20, 0, 20))
+            self.player2Sobre = False
+        else:
+            healthbar2 = pygame.draw.rect(self.screen, GREEN, (650, 60, self.healthBarPlayer2-(self.player1Score)*8, 20))
+
+
+    def addImage(self, image, size):
+        """Add an image"""
+        self.items.append(['image', ForeGroundImage(self.screen, self.main).createImage([-1, self.itemsPos[self.item]], image, size)])
+        self.item = self.item + 1
+        return self
+
     def play(self):
         if self.currentRow <= 5:
             pygame.mixer.music.load(self.main.suspense[str(self.currentRow)])
@@ -124,6 +154,8 @@ class Game(object):
         """cette méthode est la meme que les méthodes draw() des menus est elle lancée dans la méthode run du main"""
         bg = self.main.background_image_b if self.main.getTask('settingsMenu')[2].biere else self.main.background_image
         self.screen.blit(bg, (0, 0))
+        if self.vsPlayer2:
+            self.displayHealhBars()
         for j in range(self.row + 1):
             for circle in self.circles[j]:
                 circle.render()
@@ -154,10 +186,13 @@ class Game(object):
                     if math.sqrt(sqx + sqy) < self.radius + 10:
                         circle.switch("desc" if right else "asc")
 
+
     def clickButton(self, pos, event):
         """cette méthode passe en revue tout les bouttons grace a la boucle for numero 1, si c'est le boutton menu on retourne au menu, si c'est le boutton enter alors
         on vérifie si on joue avec un autre joueur, si non, alors il attends que le joueur 1 le génère. A la fin de cette méthode la méthode la méthode verification
          est appellée si le player 1 n'était pas en train de générer le secret"""
+        if not self.player1Sobre or not self.player2Sobre:
+            self.win= True
         for button in self.buttons:
             if button[0] == 'Menu' and button[1].isMouseIn(pos):
                 pygame.mixer.music.load(self.main.suspense["1"])

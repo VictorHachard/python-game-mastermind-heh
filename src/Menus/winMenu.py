@@ -22,9 +22,9 @@ class WinMenu(object):
         self.winMenu = Menu(self.screen, self.main, 7).addText('Win', 60).addText('Special unlock', 50).addText('').addText('').addText('')
         if self.main.getTask('game') != None and self.main.getTask('game')[2].vsPlayer2:
             if self.main.getTask('game')[2].player1Score < self.main.getTask('game')[2].player2Score:
-                self.winMenu.addText('Player 2 as win', 40)
+                self.winMenu.addText('Player 2 has win', 40)
             elif self.main.getTask('game')[2].player1Score > self.main.getTask('game')[2].player2Score:
-                self.winMenu.addText('Player 1 as win', 40)
+                self.winMenu.addText('Player 1 has win', 40)
             else:
                 self.winMenu.addText('Player 1 and 2 have the same score', 40)
         self.winMenu.addButton('Menu', 'm')

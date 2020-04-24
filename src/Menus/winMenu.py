@@ -20,7 +20,7 @@ class WinMenu(object):
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
         self.winMenu = Menu(self.screen, self.main, 7).addText('Win', 60).addText('Special unlock', 50).addText('').addText('').addText('')
-        if self.main.getTask('game') != None:
+        if self.main.getTask('game') != None and self.main.getTask('game')[2].vsPlayer2:
             if self.main.getTask('game')[2].player1Score < self.main.getTask('game')[2].player2Score:
                 self.winMenu.addText('Player 2 as win', 40)
             elif self.main.getTask('game')[2].player1Score > self.main.getTask('game')[2].player2Score:

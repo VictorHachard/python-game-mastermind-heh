@@ -26,7 +26,7 @@ class LoseMenu(object):
             elif self.main.getTask('game')[2].player1Score > self.main.getTask('game')[2].player2Score:
                 self.loseMenu.addText('But player 1 was better', 40)
             else:
-                self.winMenu.addText('Player 1 and 2 have the same score', 40)
+                self.loseMenu.addText('Player 1 and 2 have the same score', 40)
         self.loseMenu.addButton('Menu', 'm')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""

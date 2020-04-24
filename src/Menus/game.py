@@ -249,6 +249,7 @@ class Game(object):
                     self.main.getTask('winMenu')[2].new()
                     self.main.change = 'winMenu'
                 elif (self.currentRow >= self.row + 1):
+                    self.main.getTask('loseMenu')[2].new()
                     self.main.change = 'loseMenu'
                 else:
                     self.main.change = 'mainMenu'

@@ -54,6 +54,7 @@ class Button(object):
                 return True
             else:
                 return False
+        return False
 
     def getButton(self):
         """Return the pygame Button"""

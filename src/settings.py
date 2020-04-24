@@ -56,7 +56,7 @@ BOTTLE_IMAGES = ['1.png', '2.png', '3.png', '4.png', '5.png']
 WIDTH = 800
 HEIGHT = 800
 FPS = 60
-TITLE = "Mastermind"
+TITLE = "MasterBeer"
 
 # Sounds
 BG_MUSIC = 'bg.mp3'

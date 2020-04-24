@@ -26,6 +26,7 @@ class Main(object):
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
         self.load_data()
+        pygame.display.set_icon(self.load_image('red_b.png').convert_alpha())
         self.change = ''
         self.tasks = []
         self.tasks.append(['settingsMenu', False, SettingsMenu(self, self.screen)])
@@ -113,7 +114,7 @@ class Main(object):
 
     def draw(self, task):
         """chaque task (par exemple mainMenu) a une méthode draw, cette méthode sert donc a appeller la méthode draw de la task concernée."""
-        pygame.display.set_caption("{:.2f}".format(self.clock.get_fps()))
+        pygame.display.set_caption(TITLE + ' ' + "{:.2f}".format(self.clock.get_fps()))
         self.screen.fill(BLACK)
         task.draw()
         pygame.display.flip()

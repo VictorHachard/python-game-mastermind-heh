@@ -2,7 +2,6 @@ import pygame
 from settings import *
 from pygame import locals as const
 from Items.button import Button
-from Items.foreGroundImage import ForeGroundImage
 from Items.text import Text
 from Menus.game import Game
 

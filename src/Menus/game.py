@@ -4,7 +4,6 @@ from pygame import locals as const
 from Items.button import Button
 from Items.text import Text
 from Items.circle import Circle
-from Items.foreGroundImage import ForeGroundImage
 
 class Game(object):
     """docstring for Game. cette classe est responsable du rendu du jeu, elle est appellée suit au choix d'une difficultée dans le difficultyMenu"""

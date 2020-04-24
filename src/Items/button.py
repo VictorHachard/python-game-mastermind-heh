@@ -8,6 +8,7 @@ class Button(object):
     def __init__(self, screen, main):
         self.screen = screen
         self.main = main
+        self.rect = False
         self.x = 0
         self.y = 0
 
@@ -48,10 +49,11 @@ class Button(object):
 
     def isMouseIn(self, pos):
         """Return true if the mouse is colliding with the button"""
-        if self.rect.collidepoint(pos):
-            return True
-        else:
-            return False
+        if self.rect:
+            if self.rect.collidepoint(pos):
+                return True
+            else:
+                return False
 
     def getButton(self):
         """Return the pygame Button"""

@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 This game require the following to run:
 
-- [Python 3](https://php.net/)
+- [Python 3](https://www.python.org/download/releases/3.0/)
 - [Pygame](https://www.pygame.org/news)
 
 ### Building
@@ -28,14 +28,6 @@ you need to install pygame in order to execute the game.
 In the 'src' folder execute the 'main.py' file:
 
 `{python|py|python3} main.py`
-
-## What I Learned
-
-- Pygame
-
-## Authors & Contributors
-
-* **Hachard Victor** - *Initial work* - [VictorHachard](https://github.com/VictorHachard)
 
 ## License
 

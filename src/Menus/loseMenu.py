@@ -20,13 +20,6 @@ class LoseMenu(object):
     def new(self):
         """cette méthode sert a ajouter les bouttons et textes au menu en fonction des variables de classe dans le constructeur"""
         self.loseMenu = Menu(self.screen, self.main, 6).addText('Lose', 60)
-        if self.main.getTask('game') != None:
-            if self.main.getTask('game')[2].player1Score < self.main.getTask('game')[2].player2Score:
-                self.loseMenu.addText('But player 2 was better', 40)
-            elif self.main.getTask('game')[2].player1Score > self.main.getTask('game')[2].player2Score:
-                self.loseMenu.addText('But player 1 was better', 40)
-            else:
-                self.loseMenu.addText('Player 1 and 2 have the same score', 40)
         self.loseMenu.addButton('Menu', 'm')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""

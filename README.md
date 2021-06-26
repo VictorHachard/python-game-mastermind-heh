@@ -1,6 +1,4 @@
-# Python Game HEH
-
-
+# Python Game Mastermind HEH
 
 ![screenshot](../master/res/game.gif)
 

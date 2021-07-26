@@ -22,7 +22,7 @@ class DifficultyMenu(object):
         if self.deja:
             self.difficultyLvl = self.main.getTask('scoreMenu')[2].bottle
             self.deja = not self.deja
-        self.difficultyMenu = Menu(self.screen, self.main, 7, 2).addText('Difficulty', 60).addButton('Easy', 'e', GREEN if self.difficultyLvl >= 0 else BLACK).addButton('Medium', 'm', GREEN if self.difficultyLvl >= 1 else BLACK).addButton('Hard', 'h', GREEN if self.difficultyLvl >= 2 else BLACK).addButton('Extreme', 'ex', GREEN if self.difficultyLvl >= 3 else BLACK).addButton('Yoan', 'a', GREEN if self.difficultyLvl >= 4 else BLACK).addButton('Menu', 'menu')
+        self.difficultyMenu = Menu(self.screen, self.main, 7, 2).addText('Difficulty', 60).addButton('Easy', 'e', GREEN if self.difficultyLvl >= 0 else BLACK).addButton('Medium', 'm', GREEN if self.difficultyLvl >= 1 else BLACK).addButton('Hard', 'h', GREEN if self.difficultyLvl >= 2 else BLACK).addButton('Extreme', 'ex', GREEN if self.difficultyLvl >= 3 else BLACK).addButton('Armand', 'a', GREEN if self.difficultyLvl >= 4 else BLACK).addButton('Menu', 'menu')
 
     """les 3 méthodes suivantes sont les méthodes dans lesquelles les tacks sont gérés, ces méthodes sont appellée depuis la méthode run du main"""
 
@@ -46,15 +46,15 @@ class DifficultyMenu(object):
         if res == 'menu':
             self.main.change = 'mainMenu'
         elif res == 'e' and self.difficultyLvl >= 0:
-            game = Game(self.main, self.screen, self, 0, boss = 1)
+            game = Game(self.main, self.screen, self, 0)
         elif res == 'm' and self.difficultyLvl >= 1:
-            game = Game(self.main, self.screen, self, 1, column = 4, row = 4, boss = 2)
+            game = Game(self.main, self.screen, self, 1, column = 4, row = 4)
         elif res == 'h' and self.difficultyLvl >= 2:
-            game = Game(self.main, self.screen, self, 2, column = 5, row = 5, boss = 3)
+            game = Game(self.main, self.screen, self, 2, column = 5, row = 5)
         elif res == 'ex' and self.difficultyLvl >= 3:
-            game = Game(self.main, self.screen, self, 3, column = 6, row = 6, colors = 7, boss = 4)
+            game = Game(self.main, self.screen, self, 3, column = 6, row = 6, colors = 7)
         elif res == 'a' and self.difficultyLvl >= 4:
-            game = Game(self.main, self.screen, self, 4, column = 7, row = 6, colors = 7, boss = 5)
+            game = Game(self.main, self.screen, self, 4, column = 7, row = 6, colors = 7)
         if res == 'e' or res == 'm' or res == 'h' or res == 'ex' or res == 'a':
             if game:
                 self.main.getTask('game')[2] = game
